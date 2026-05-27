@@ -1,0 +1,283 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroNav from '../components/HeroNav.svelte';
+import CountdownWatch from '../components/CountdownWatch.svelte';
+---
+
+<Layout title="MongoDB .local San Francisco · 2026">
+  <HeroNav client:only="svelte" />
+  <CountdownWatch client:load />
+
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <video
+        class="hero-bg-media"
+        src="/hero/video.mp4"
+        poster="/hero/bg-hero.png"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+      <div class="hero-bg-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="eyebrow">
+        <span>The Midway, San Francisco</span>
+        <span class="dot" aria-hidden="true">•</span>
+        <span>August 13, 2026</span>
+      </div>
+
+      <h1 class="headline">
+        Ship your AI<br />
+        vision, faster.
+      </h1>
+
+      <p class="lede">
+        Join the Bay Area's top leaders, founders, and experts for a day of knowledge
+        sharing and networking. You'll master new tech, gain a fresh vision of success,
+        and see the latest from MongoDB and Voyage AI.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#register">Register Now</a>
+        <a class="btn btn-secondary" href="#agenda">View Agenda</a>
+      </div>
+    </div>
+
+    <a class="scroll-cue" href="#below" aria-label="Scroll down">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#ffffff" stroke-width="2" />
+        <path d="M16 10L12 14L8 10" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+  </section>
+
+  <main id="below" class="filler">
+    <section>
+      <h2>Why .local</h2>
+      <p>
+        Bring together the people building the next generation of AI applications.
+        Practitioners, founders, and platform teams share what they've learned shipping
+        production systems at scale — what works, what doesn't, and what's next.
+      </p>
+    </section>
+
+    <section id="speakers">
+      <h2>Speakers</h2>
+      <p>
+        A curated lineup of engineers and researchers from across the Bay Area. Talks
+        focus on retrieval, evaluation, agent design, and the operational realities of
+        running AI workloads in production.
+      </p>
+    </section>
+
+    <section id="agenda">
+      <h2>Agenda</h2>
+      <p>
+        Morning keynotes followed by deep-dive technical tracks, hands-on workshops,
+        and lightning talks. Lunch and an extended afternoon reception keep the
+        conversation going long after the last session.
+      </p>
+    </section>
+
+    <section id="sponsors">
+      <h2>Sponsors</h2>
+      <p>
+        .local San Francisco is presented by MongoDB and Voyage AI, with support from
+        leading companies across the AI infrastructure stack.
+      </p>
+    </section>
+
+    <section id="register">
+      <h2>Reserve your seat</h2>
+      <p>
+        Seating is limited. Registration includes full-day access, meals, swag, and
+        the evening reception.
+      </p>
+      <a class="btn btn-primary inline" href="#">Register Now</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 640px;
+    overflow: hidden;
+    color: #ffffff;
+    isolation: isolate;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 30, 43, 0.7);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 clamp(16px, 8%, 132px);
+    gap: 16px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid #5d6c74;
+    border-radius: 8px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #ffffff;
+    background: rgba(0, 30, 43, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .eyebrow .dot {
+    color: #00ed64;
+  }
+
+  .headline {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 8px 0 0;
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    margin: 24px 0 0;
+    max-width: 696px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-size: 18px;
+    line-height: 32px;
+    color: #ededed;
+  }
+
+  .cta-row {
+    margin-top: 32px;
+    display: flex;
+    gap: 24px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    border-radius: 4px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: #00ed64;
+    color: #001e2b;
+    border-color: #00684a;
+  }
+
+  .btn-primary:hover {
+    background: #00d959;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: bob 2.4s ease-in-out infinite;
+    color: #ffffff;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 6px); }
+  }
+
+  /* Filler scroll content */
+  .filler {
+    background: #001e2b;
+    color: #ffffff;
+    padding: 120px clamp(16px, 8%, 132px);
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+  }
+
+  .filler section {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .filler h2 {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.15;
+    text-transform: uppercase;
+    margin: 0 0 24px;
+  }
+
+  .filler p {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-size: 18px;
+    line-height: 32px;
+    color: #b8c4c2;
+    margin: 0 0 24px;
+  }
+
+  .btn.inline {
+    margin-top: 16px;
+  }
+</style>

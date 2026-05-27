@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'MongoDB Value Serif';
+    src: url('/fonts/mongo-db-value/MongoDBValueSerif-Regular.woff2') format('woff2'),
+         url('/fonts/mongo-db-value/MongoDBValueSerif-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Euclid Circular A';
+    src: url('/fonts/euclid-circular-a/euclidcirculara-regular-webfont.woff2') format('woff2'),
+         url('/fonts/euclid-circular-a/euclidcirculara-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.mono-font {
+    font-family: "Source Code Pro", monospace;
+    font-optical-sizing: auto;
+}
+
+.max-w-8xl {
+    max-width: 1416px;
+    margin: 0 auto;
+}

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-body {
+html {
   font-family: "Euclid Circular A", sans-serif;
   font-optical-sizing: auto;
   scroll-behavior: smooth;
@@ -504,7 +504,71 @@ body {
    --text-mono-3--line-height: var(--leading-line-height-base);
    --text-mono-3--letter-spacing: 0rem;
    --text-mono-3--font-weight: 400;
- 
+
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Flora Motion System — design tokens
+   https://mdb-flora-motion.netlify.app/patterns/tokens/
+   Reference these for all transitions/animations (durations + easings) so
+   motion stays consistent. Bespoke choreography (e.g. the countdown clock
+   morph) is the only exception.
+   ────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Durations — intent-based (preferred) */
+  --flora-motion-duration-feedback: 150ms;
+  --flora-motion-duration-enter: 250ms;
+  --flora-motion-duration-exit: 200ms;
+  --flora-motion-duration-expressive: 500ms;
+
+  /* Durations — abstract tier */
+  --flora-motion-duration-instant: 100ms;
+  --flora-motion-duration-fast: 150ms;
+  --flora-motion-duration-moderate: 250ms;
+  --flora-motion-duration-slow: 500ms;
+
+  /* Durations — specialized */
+  --flora-motion-duration-spinner: 720ms;
+  --flora-motion-duration-spinner-reduced: 2000ms;
+
+  /* Easings — intent-based aliases */
+  --flora-motion-easing-feedback: ease;
+  --flora-motion-easing-enter: cubic-bezier(0, 0, 0.2, 1);
+  --flora-motion-easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --flora-motion-easing-movement: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Easings — underlying curves */
+  --flora-motion-easing-standard: ease;
+  --flora-motion-easing-decelerated: cubic-bezier(0, 0, 0.2, 1);
+  --flora-motion-easing-accelerated: cubic-bezier(0.4, 0, 1, 1);
+  --flora-motion-easing-emphasized: cubic-bezier(0.4, 0, 0.2, 1);
+  --flora-motion-easing-expressive: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Distances */
+  --flora-motion-distance-xs: 0.25rem;
+  --flora-motion-distance-sm: 0.5rem;
+  --flora-motion-distance-md: 1rem;
+  --flora-motion-distance-lg: 1.5rem;
+  --flora-motion-distance-reveal: 1.25rem;
+
+  /* Delay */
+  --flora-motion-delay-stagger: 60ms;
+}
+
+/* Honor reduced-motion: collapse token-driven durations so transitions resolve
+   instantly. Bespoke animations that don't read these tokens are unaffected. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --flora-motion-duration-feedback: 0.01ms;
+    --flora-motion-duration-enter: 0.01ms;
+    --flora-motion-duration-exit: 0.01ms;
+    --flora-motion-duration-expressive: 0.01ms;
+    --flora-motion-duration-instant: 0.01ms;
+    --flora-motion-duration-fast: 0.01ms;
+    --flora-motion-duration-moderate: 0.01ms;
+    --flora-motion-duration-slow: 0.01ms;
+    --flora-motion-delay-stagger: 0ms;
+  }
 }
 
 .dark {

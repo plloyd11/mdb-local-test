@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  linkText?: string;
+  linkHref?: string;
+}
+
+const { title, description, linkText, linkHref = '#' } = Astro.props;
+---
+
+<header class="section-header">
+  <div class="section-header-copy">
+    <h2 class="section-header-title">{title}</h2>
+    {description && <p class="section-header-desc">{description}</p>}
+  </div>
+
+  {
+    linkText && (
+      <a class="section-header-link" href={linkHref}>
+        {linkText}
+        <svg width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+          <path
+            d="M1 1l4 4-4 4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    )
+  }
+</header>
+
+<style>
+  .section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px 32px;
+  }
+
+  .section-header-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 696px;
+    min-width: 280px;
+    flex: 1 0 0;
+  }
+
+  .section-header-title {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: 1.33;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .section-header-desc {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b8c4c2;
+    margin: 0;
+  }
+
+  .section-header-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    /* Flora inline-CTA: color shift on feedback timing */
+    transition: color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
+  }
+
+  .section-header-link:hover {
+    color: #00ed64;
+  }
+
+  .section-header-link svg {
+    /* Arrow translate on enter timing + movement easing */
+    transition: transform var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
+  }
+
+  .section-header-link:hover svg,
+  .section-header-link:focus-visible svg {
+    transform: translateX(0.125rem);
+  }
+</style>

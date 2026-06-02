@@ -1,0 +1,88 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import awsUrl from '../assets/local/AWS.svg?url';
+import msUrl from '../assets/local/ms.svg?url';
+import googleUrl from '../assets/local/Google.svg?url';
+
+const sponsors = [
+  { name: 'AWS', logo: awsUrl, width: 216, height: 72 },
+  { name: 'Microsoft', logo: msUrl, width: 216, height: 47 },
+  { name: 'Google', logo: googleUrl, width: 216, height: 72 },
+];
+---
+
+<section id="sponsors" class="sponsors">
+  <div class="sponsors-inner">
+    <SectionHeader
+      title="Thank you to our global sponsors"
+      description="The partners powering .local — bringing the tools, platforms, and expertise behind the day."
+      linkText="View all sponsors"
+      linkHref="#sponsors"
+    />
+
+    <ul class="sponsor-grid">
+      {
+        sponsors.map((s) => (
+          <li class="sponsor-card">
+            <img
+              src={s.logo}
+              alt={`${s.name} logo`}
+              width={s.width}
+              height={s.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sponsors {
+    background: #001e2b;
+    color: #ffffff;
+    padding: clamp(64px, 9vw, 96px) clamp(16px, 8%, 132px);
+  }
+
+  .sponsors-inner {
+    max-width: 1416px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 5vw, 48px);
+  }
+
+  .sponsor-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .sponsor-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(180px, 24vw, 304px);
+    background: #1c2b34;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+  }
+
+  .sponsor-card img {
+    width: 216px;
+    max-width: 60%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .sponsor-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

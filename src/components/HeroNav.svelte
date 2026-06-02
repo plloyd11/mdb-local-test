@@ -12,6 +12,15 @@
   let io: IntersectionObserver;
   let tl: gsap.core.Timeline | null = null;
 
+  // Read a Flora motion token (in seconds) so GSAP stays in sync with the CSS
+  // tokens — including the reduced-motion overrides defined in global.css.
+  function motionToken(varName: string, fallbackSeconds: number): number {
+    if (typeof document === 'undefined') return fallbackSeconds;
+    const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    if (!v) return fallbackSeconds;
+    return v.endsWith('ms') ? parseFloat(v) / 1000 : parseFloat(v) || fallbackSeconds;
+  }
+
   function buildTimeline() {
     if (!toggleEl || !overlayEl) return;
     const rect = toggleEl.getBoundingClientRect();
@@ -23,6 +32,11 @@
     );
 
     tl?.kill();
+    // Menu opening → Flora "enter" timing. The circular clip geometry is bespoke,
+    // but its duration/easing follow the tokens. Closing reuses this timeline
+    // reversed, retimed to "exit" (see playClose).
+    const enter = motionToken('--flora-motion-duration-enter', 0.25);
+    const stagger = motionToken('--flora-motion-delay-stagger', 0.06);
     tl = gsap.timeline({ paused: true });
     tl.set(overlayEl, { visibility: 'visible' });
     tl.fromTo(
@@ -30,26 +44,36 @@
       { clipPath: `circle(0px at ${cx}px ${cy}px)` },
       {
         clipPath: `circle(${farthest}px at ${cx}px ${cy}px)`,
-        duration: 0.6,
-        ease: 'power3.inOut',
+        duration: enter,
+        ease: 'power2.out', // ≈ easing-enter cubic-bezier(0, 0, 0.2, 1)
       }
     );
     if (menuListEl) {
+      // Staggered fade-up of items (Flora section-reveal pattern)
       tl.from(
         menuListEl.children,
-        { opacity: 0, y: 24, stagger: 0.07, duration: 0.35, ease: 'power2.out' },
-        '-=0.25'
+        { opacity: 0, y: 24, stagger, duration: enter, ease: 'power2.out' },
+        enter * 0.4
       );
     }
   }
 
+  function playClose() {
+    // Retime the reversed timeline from "enter" to "exit" duration
+    const enter = motionToken('--flora-motion-duration-enter', 0.25);
+    const exit = motionToken('--flora-motion-duration-exit', 0.2);
+    tl?.timeScale(exit > 0 ? enter / exit : 1);
+    tl?.reverse();
+  }
+
   function toggleMenu() {
     if (menuOpen) {
-      tl?.reverse();
+      playClose();
       menuOpen = false;
       document.body.style.overflow = '';
     } else {
       buildTimeline();
+      tl?.timeScale(1);
       tl?.play(0);
       menuOpen = true;
       document.body.style.overflow = 'hidden';
@@ -58,7 +82,7 @@
 
   function closeMenu() {
     if (!menuOpen) return;
-    tl?.reverse();
+    playClose();
     menuOpen = false;
     document.body.style.overflow = '';
   }
@@ -106,9 +130,10 @@
 
     <div class="nav-right">
       <ul class="nav-items">
+        <li><a href="#why-attend">Why Attend</a></li>
         <li><a href="#speakers">Speakers</a></li>
-        <li><a href="#agenda">Agenda</a></li>
-        <li><a href="#sponsors">Sponsors</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#sessions">Featured Sessions</a></li>
       </ul>
       <a class="register-btn" href="#register">Register Now</a>
     </div>
@@ -132,9 +157,10 @@
 
 <div bind:this={overlayEl} id="mobile-menu" class="mobile-overlay" aria-hidden={!menuOpen}>
   <ul bind:this={menuListEl} class="mobile-menu-list">
-    <li><a href="#speakers" onclick={closeMenu}>Speakers</a></li>
-    <li><a href="#agenda" onclick={closeMenu}>Agenda</a></li>
-    <li><a href="#sponsors" onclick={closeMenu}>Sponsors</a></li>
+    <li><a href="#speakers" onclick={closeMenu}>Why Attend</a></li>
+    <li><a href="#agenda" onclick={closeMenu}>Speakers</a></li>
+    <li><a href="#sponsors" onclick={closeMenu}>Pricing</a></li>
+    <li><a href="#sponsors" onclick={closeMenu}>Featured Sessions</a></li>
     <li><a class="mobile-register" href="#register" onclick={closeMenu}>Register Now</a></li>
   </ul>
 </div>
@@ -156,7 +182,7 @@
     right: 0;
     z-index: 50;
     padding: 24px clamp(16px, 7.86%, 132px);
-    transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: padding var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
     pointer-events: none;
   }
 
@@ -175,8 +201,8 @@
     border-radius: 16px;
     box-shadow: 0 3px 20px rgba(0, 0, 0, 0.15);
     transition:
-      border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-movement),
+      box-shadow var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
   }
 
   .nav-shell.stuck .nav {
@@ -221,7 +247,7 @@
     line-height: 24px;
     color: #001e2b;
     text-decoration: none;
-    transition: color 0.15s ease;
+    transition: color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
   }
 
   .nav-items a:hover {
@@ -241,11 +267,25 @@
     font-size: 16px;
     line-height: 18px;
     border-radius: 4px;
-    transition: background 0.15s ease;
+    /* Flora button motion */
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      box-shadow var(--flora-motion-duration-moderate) var(--flora-motion-easing-emphasized),
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
   }
 
   .register-btn:hover {
     background: #00684a;
+    transform: translateY(-1px);
+    border-radius: var(--radius-border-radius-circle);
+    box-shadow: 0 0 0 6px color-mix(in oklch, #00ed64 35%, transparent);
+  }
+
+  .register-btn:active {
+    transform: scale(0.985);
+    border-radius: var(--radius-border-radius-circle);
+    transition-duration: var(--flora-motion-duration-instant);
   }
 
   /* ---------- Hamburger toggle ---------- */
@@ -260,7 +300,7 @@
     padding: 0;
     z-index: 60;
     border-radius: 999px;
-    transition: background 0.2s ease;
+    transition: background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
   }
 
   .menu-toggle:hover {
@@ -276,10 +316,10 @@
     border-radius: 2px;
     transform-origin: center;
     transition:
-      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-      opacity 0.2s ease,
-      background 0.2s ease,
-      top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-movement),
+      opacity var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      top var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
     margin-left: -11px;
   }
 
@@ -332,7 +372,7 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    transition: color 0.15s ease;
+    transition: color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
   }
 
   .mobile-menu-list a:hover {
@@ -347,11 +387,24 @@
     border-radius: 4px;
     font-size: 18px !important;
     text-transform: none !important;
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
   }
 
   .mobile-register:hover {
     color: #001e2b !important;
     background: #00d959;
+    transform: translateY(-1px);
+    border-radius: var(--radius-border-radius-circle);
+  }
+
+  .mobile-register:active {
+    transform: scale(0.985);
+    border-radius: var(--radius-border-radius-circle);
+    transition-duration: var(--flora-motion-duration-instant);
   }
 
   /* ---------- Breakpoints ---------- */

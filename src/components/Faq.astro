@@ -1,0 +1,57 @@
+---
+import FaqAccordion from './FaqAccordion.svelte';
+---
+
+<section id="faq" class="faq">
+  <div class="faq-inner">
+    <header class="faq-header">
+      <h2 class="faq-title">FAQ</h2>
+      <p class="faq-subtitle">Dive into more details about our .local series</p>
+    </header>
+
+    <FaqAccordion client:visible />
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: #001e2b;
+    color: #ffffff;
+    padding: clamp(64px, 9vw, 96px) clamp(16px, 8%, 132px);
+  }
+
+  .faq-inner {
+    max-width: 1416px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 7vw, 80px);
+  }
+
+  .faq-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .faq-title {
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.125;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .faq-subtitle {
+    max-width: 696px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+    color: #b8c4c2;
+    margin: 0;
+  }
+</style>

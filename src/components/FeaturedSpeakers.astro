@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import SectionHeader from './SectionHeader.astro';
+import cj from '../assets/local/Card/cj.png';
+import harry from '../assets/local/Card/harry.png';
+import luciana from '../assets/local/Card/luciana.png';
+import arek from '../assets/local/Card/arek.png';
+import pete from '../assets/local/Card/pete.png';
+import deepak from '../assets/local/Card/deepak.png';
+
+const speakers = [
+  { photo: cj, name: 'Chirantan “CJ” Desai', role: 'President & CEO, MongoDB' },
+  { photo: harry, name: 'Harry Stebbings', role: 'Founder, 20VC' },
+  { photo: luciana, name: 'Luciana Lixandru', role: 'Partner, Sequoia' },
+  { photo: arek, name: 'Arek Borucki', role: 'Machine Learning Platform & Database Engineer. Hugging Face' },
+  { photo: pete, name: 'Pete Johnson', role: 'Field CTO, AI, MongoDB' },
+  { photo: deepak, name: 'Deepak Dastrala', role: 'Chief Technology Officer. IntellectAI' },
+];
+---
+
+<section id="speakers" class="speakers">
+  <div class="speakers-inner">
+    <SectionHeader
+      title="Featured speakers"
+      description="Meet the founders, investors, and engineers shaping what's next in AI — and the people putting it into production every day."
+      linkText="View all speakers"
+      linkHref="#speakers"
+    />
+
+    <ul class="speaker-grid">
+      {
+        speakers.map((s) => (
+          <li class="card">
+            <div class="card-photo">
+              <Image
+                src={s.photo}
+                alt={`Portrait of ${s.name}`}
+                widths={[300, 456, 912]}
+                sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 456px"
+                loading="lazy"
+              />
+            </div>
+            <div class="card-copy">
+              <h3 class="card-name">{s.name}</h3>
+              <p class="card-role">{s.role}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .speakers {
+    background: #023430;
+    color: #ffffff;
+    padding: clamp(64px, 9vw, 96px) clamp(16px, 8%, 132px);
+  }
+
+  .speakers-inner {
+    max-width: 1416px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 64px);
+  }
+
+  /* ---------- Grid ---------- */
+  .speaker-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .card-photo {
+    position: relative;
+    aspect-ratio: 456 / 350;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #023430;
+  }
+
+  .card-photo :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    /* Flora card media scale: a slow, decelerated zoom so the image keeps
+       moving briefly after the rest of the card has settled */
+    transition: transform var(--flora-motion-duration-expressive) var(--flora-motion-easing-enter);
+  }
+
+  .card:hover .card-photo :global(img),
+  .card:focus-within .card-photo :global(img) {
+    transform: scale(1.06);
+  }
+
+  .card-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card-name {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .card-role {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b8c4c2;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .speaker-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .speaker-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

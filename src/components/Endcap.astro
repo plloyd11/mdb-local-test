@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import endcapPhoto from '../assets/local/endcap.png';
+---
+
+<section class="endcap">
+  <div class="endcap-container">
+    <div class="endcap-copy">
+      <div class="endcap-text">
+        <h2 class="endcap-title">Can't make it to San Francisco?</h2>
+        <p class="endcap-subtitle">Catch the keynote live.</p>
+      </div>
+
+      <div class="endcap-ctas">
+        <a class="endcap-btn" href="#">Watch the livestream</a>
+        <a class="endcap-link" href="#">
+          Find a watch party
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+            <path
+              d="M1 1l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="endcap-image">
+      <Image
+        src={endcapPhoto}
+        alt="A packed audience watching the keynote on stage at a .local event"
+        widths={[456, 912]}
+        sizes="(max-width: 520px) 100vw, 456px"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .endcap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #061621;
+    color: #ffffff;
+    padding: clamp(56px, 8vw, 80px) clamp(24px, 4vw, 48px);
+    border-radius: clamp(48px, 8vw, 104px) clamp(48px, 8vw, 104px) 0 0;
+    overflow: hidden;
+  }
+
+  .endcap-container {
+    width: 100%;
+    max-width: 1176px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+  }
+
+  .endcap-copy {
+    flex: 1 0 0;
+    min-width: 327px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .endcap-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .endcap-title {
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.14;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .endcap-subtitle {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 32px;
+    color: #b8c4c2;
+    margin: 0;
+  }
+
+  .endcap-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+  }
+
+  /* Primary button — Flora button motion */
+  .endcap-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #00ed64;
+    color: #001e2b;
+    border: 1px solid #00ed64;
+    border-radius: 4px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      box-shadow var(--flora-motion-duration-moderate) var(--flora-motion-easing-emphasized),
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
+  }
+
+  .endcap-btn:hover {
+    background: #00d959;
+    border-color: #00d959;
+    transform: translateY(-1px);
+    border-radius: var(--radius-border-radius-circle);
+    box-shadow: 0 0 0 6px color-mix(in oklch, #00ed64 45%, transparent);
+  }
+
+  .endcap-btn:active {
+    transform: scale(0.985);
+    border-radius: var(--radius-border-radius-circle);
+    transition-duration: var(--flora-motion-duration-instant);
+  }
+
+  /* Inline CTA — arrow translate */
+  .endcap-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
+  }
+
+  .endcap-link:hover {
+    color: #00ed64;
+  }
+
+  .endcap-link svg {
+    transition: transform var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
+  }
+
+  .endcap-link:hover svg,
+  .endcap-link:focus-visible svg {
+    transform: translateX(0.125rem);
+  }
+
+  .endcap-image {
+    flex-shrink: 0;
+    width: 456px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .endcap-image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>

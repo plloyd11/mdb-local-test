@@ -1,0 +1,148 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+const sessions = [
+  {
+    category: 'Data Modeling',
+    title: 'Methodologies and Foundations of Data Modeling for MongoDB',
+    presenter: 'Daniel Coupal — Staff Developer Advocate, MongoDB',
+    description:
+      'Explore the essential principles of data modeling that empower developers to create efficient and scalable applications. Join us as we delve into best practices and innovative techniques tailored for MongoDB.',
+  },
+  {
+    category: 'Analytics',
+    title: 'Advanced Analytics Techniques Using Python',
+    presenter: 'Lisa Tran — Data Scientist, Tech Innovations Inc.',
+    description:
+      "Discover cutting-edge analytics methods that leverage Python's powerful libraries. This session covers advanced statistical analysis and machine learning algorithms to unlock valuable insights from your data.",
+  },
+  {
+    category: 'Microservices',
+    title: 'Building Scalable Microservices with Node.js',
+    presenter: 'Jackie Chen — Senior Software Engineer, Cloud Solutions Ltd.',
+    description:
+      'Learn how to design and implement microservices using Node.js. We will focus on scalability, performance, and best practices for creating robust, distributed systems.',
+  },
+];
+---
+
+<section id="sessions" class="sessions">
+  <div class="sessions-inner">
+    <SectionHeader
+      title="Featured sessions"
+      description="A preview of the talks, workshops, and deep dives happening across the day's agenda."
+      linkText="View all sessions"
+      linkHref="#sessions"
+    />
+
+    <ul class="session-grid">
+      {
+        sessions.map((s) => (
+          <li class="session-card">
+            <span class="pill">{s.category}</span>
+            <div class="session-titlesub">
+              <h3 class="session-title">{s.title}</h3>
+              <p class="session-presenter">{s.presenter}</p>
+            </div>
+            <p class="session-desc">{s.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sessions {
+    background: #023430;
+    color: #ffffff;
+    padding: clamp(64px, 9vw, 96px) clamp(16px, 8%, 132px);
+  }
+
+  .sessions-inner {
+    max-width: 1416px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 5vw, 48px);
+  }
+
+  .session-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+
+  .session-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .pill {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 24px;
+    border: 1px solid #ffffff;
+    border-radius: 999px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .session-titlesub {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .session-title {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .session-presenter {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #00ed64;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .session-desc {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 32px;
+    color: #b8c4c2;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .session-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .session-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

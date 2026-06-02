@@ -1,0 +1,303 @@
+---
+import { Image } from 'astro:assets';
+import ticketsPhoto from '../assets/local/tickets.png';
+
+const tiers = [
+  { name: 'Super Early Bird', detail: 'Starts May 10', price: '$50' },
+  { name: 'Early Bird', detail: 'Starts June 1', price: '$75' },
+  { name: 'General', detail: 'Starts July 5', price: '$125' },
+];
+
+const benefits = [
+  'Sessions, panels & demos',
+  'MongoDB Expert access',
+  'Skill badges',
+  'Exclusive merch',
+  'Partner showcases',
+  'Food & drinks all day',
+];
+---
+
+<section id="pricing" class="pricing">
+  <div class="pricing-photo">
+    <Image
+      src={ticketsPhoto}
+      alt="A speaker presenting on stage to the audience at a .local event"
+      widths={[670, 1010, 1340]}
+      sizes="(max-width: 1024px) 100vw, 40vw"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="pricing-copy">
+    <div class="pricing-copy-inner">
+      <div class="price-block">
+        <h2 class="pricing-title">Ticket Pricing</h2>
+
+        <div class="pricing-tiers">
+          {
+            tiers.map((t) => (
+              <div class="tier">
+                <div class="tier-info">
+                  <span class="tier-name">{t.name}</span>
+                  <span class="tier-detail">{t.detail}</span>
+                </div>
+                <span class="tier-price">{t.price}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="benefits-block">
+        <h3 class="benefits-title">Every ticket includes</h3>
+        <ul class="benefits-grid">
+          {
+            benefits.map((b) => (
+              <li class="benefit">
+                <svg class="check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M3 8.5 6.5 12 13 4.5"
+                    stroke="#27cd00"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="cta-block">
+        <a class="pricing-cta" href="#register">Register Now</a>
+        <p class="disclaimer">All prices are in USD and exclude applicable taxes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    background: #001e2b;
+    color: #ffffff;
+  }
+
+  /* ---------- Left photo ---------- */
+  .pricing-photo {
+    position: relative;
+    overflow: hidden;
+    background: #001e2b;
+  }
+
+  .pricing-photo :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* ---------- Right copy ---------- */
+  .pricing-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(56px, 7vw, 88px) clamp(24px, 4vw, 64px);
+  }
+
+  .pricing-copy-inner {
+    width: 100%;
+    max-width: 914px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 5vw, 49px);
+  }
+
+  .price-block,
+  .benefits-block {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .pricing-title {
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5vw, 56px);
+    line-height: 1.14;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  /* ---------- Pricing tiers ---------- */
+  .pricing-tiers {
+    width: 100%;
+    max-width: 830px;
+  }
+
+  .tier {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .tier:first-child {
+    border-top: 0;
+  }
+
+  .tier:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .tier-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tier-name {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+    color: #ffffff;
+  }
+
+  .tier-detail {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #b8c4c2;
+  }
+
+  .tier-price {
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5vw, 56px);
+    line-height: 1.1;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  /* ---------- Benefits ---------- */
+  .benefits-title {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3.5vw, 32px);
+    line-height: 1.4;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .benefits-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 590px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 5vw, 72px);
+    row-gap: 8px;
+  }
+
+  .benefit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 32px;
+    color: #ffffff;
+  }
+
+  .check {
+    flex-shrink: 0;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pricing-cta {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #00ed64;
+    color: #001e2b;
+    border: 1px solid #00684a;
+    border-radius: 4px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    /* Flora button motion */
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      box-shadow var(--flora-motion-duration-moderate) var(--flora-motion-easing-emphasized),
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
+  }
+
+  .pricing-cta:hover {
+    background: #00d959;
+    transform: translateY(-1px);
+    border-radius: var(--radius-border-radius-circle);
+    box-shadow: 0 0 0 6px color-mix(in oklch, #00ed64 45%, transparent);
+  }
+
+  .pricing-cta:active {
+    transform: scale(0.985);
+    border-radius: var(--radius-border-radius-circle);
+    transition-duration: var(--flora-motion-duration-instant);
+  }
+
+  .disclaimer {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.25px;
+    color: #b8c4c2;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1024px) {
+    .pricing {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-photo {
+      min-height: clamp(280px, 50vw, 440px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .benefits-grid {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+    }
+  }
+</style>

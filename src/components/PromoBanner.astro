@@ -1,0 +1,156 @@
+---
+---
+
+<section class="promo">
+  <div class="promo-card">
+    <div class="promo-text">
+      <div class="promo-titlesub">
+        <h2 class="promo-title">Meet us in San Francisco</h2>
+        <p class="promo-desc">
+          The new learning experience makes picking up knowledge, developing a
+          fundamental MongoDB skill set, and getting certified both quick and easy.
+        </p>
+      </div>
+
+      <div class="promo-ctas">
+        <a class="promo-btn" href="#register">Register Now</a>
+        <a class="promo-link" href="#agenda">
+          See the agenda
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+            <path
+              d="M1 1l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo {
+    background: #001e2b;
+    padding: clamp(56px, 8vw, 96px) clamp(16px, 8%, 132px);
+  }
+
+  .promo-card {
+    max-width: 1176px;
+    margin: 0 auto;
+    background: #023430;
+    color: #ffffff;
+    border-radius: clamp(32px, 5vw, 72px);
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.15);
+    padding: clamp(40px, 6vw, 56px) clamp(24px, 6vw, 80px);
+    overflow: hidden;
+  }
+
+  .promo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .promo-titlesub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .promo-title {
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.14;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .promo-desc {
+    max-width: 576px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 32px;
+    color: #b8c4c2;
+    margin: 0;
+  }
+
+  .promo-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 24px 32px;
+  }
+
+  /* Primary button — Flora button motion */
+  .promo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #00ed64;
+    color: #001e2b;
+    border: 1px solid #00ed64;
+    border-radius: 4px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      box-shadow var(--flora-motion-duration-moderate) var(--flora-motion-easing-emphasized),
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
+  }
+
+  .promo-btn:hover {
+    background: #00d959;
+    border-color: #00d959;
+    transform: translateY(-1px);
+    border-radius: var(--radius-border-radius-circle);
+    box-shadow: 0 0 0 6px color-mix(in oklch, #00ed64 45%, transparent);
+  }
+
+  .promo-btn:active {
+    transform: scale(0.985);
+    border-radius: var(--radius-border-radius-circle);
+    transition-duration: var(--flora-motion-duration-instant);
+  }
+
+  /* Inline CTA — arrow translate */
+  .promo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
+  }
+
+  .promo-link:hover {
+    color: #00ed64;
+  }
+
+  .promo-link svg {
+    transition: transform var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
+  }
+
+  .promo-link:hover svg,
+  .promo-link:focus-visible svg {
+    transform: translateX(0.125rem);
+  }
+</style>

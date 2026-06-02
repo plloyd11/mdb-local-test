@@ -5,7 +5,10 @@
       "mcp__plugin_figma_figma__get_metadata",
       "mcp__plugin_figma_figma__get_screenshot",
       "Bash(curl -s -o /tmp/figma-hero.png \"https://www.figma.com/api/mcp/asset/2df815c2-a1eb-45c4-82af-f5a5166efe68\")",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "mcp__plugin_figma_figma__get_design_context",
+      "WebFetch(domain:mdb-flora-motion.netlify.app)",
+      "Bash(pnpm build *)"
     ]
   }
 }

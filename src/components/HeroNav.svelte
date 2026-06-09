@@ -178,11 +178,15 @@
   .nav-shell {
     position: fixed;
     top: 0;
-    left: 0;
+    /* Inset by the review "push" drawer width (0 by default) so the fixed nav
+       stays aligned with the content when the page is pushed aside. */
+    left: var(--review-push, 0px);
     right: 0;
     z-index: 50;
     padding: 24px clamp(16px, 7.86%, 132px);
-    transition: padding var(--flora-motion-duration-enter) var(--flora-motion-easing-movement);
+    transition:
+      padding var(--flora-motion-duration-enter) var(--flora-motion-easing-movement),
+      left var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
     pointer-events: none;
   }
 

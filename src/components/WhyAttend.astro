@@ -1,40 +1,50 @@
 ---
 import { Image } from 'astro:assets';
-import whyAttendPhoto from '../assets/local/Why Attend.png';
+import whyAttendPhoto from '../assets/local/tickets.png';
 
 const features = [
   {
-    title: 'AI-Native Development',
-    body: 'Get hands on with bootcamps, learn about the latest AI developments, and discover eLearning opportunities to turn your proof-of-concepts into enterprise-grade production.',
+    index: '01',
+    title: 'Get hands-on with AI',
+    body: 'Bootcamps, labs, and eLearning that turn your proof-of-concepts into production, built on the latest from MongoDB and Voyage AI.',
   },
   {
-    title: 'Invest in Your Growth',
-    body: "Discover how AI is reshaping the developer toolkit and learn how to make it work for you. Explore new tools, pick up practical skills, and leave with ideas you'll actually use, whether it's for your next project or your next career move.",
+    index: '02',
+    title: 'Invest in how you build',
+    body: "See how AI is reshaping the developer toolkit, and pick up skills you'll actually use, on your next project or your next move.",
   },
   {
-    title: 'Hear from Industry Trailblazers',
-    body: 'Get inspiration from industry luminaries, community leaders, and your peers. Hear their stories and see their innovations to inspire your own.',
+    index: '03',
+    title: 'Learn from the people shipping it',
+    body: 'Industry luminaries, community leaders, and the peers in your field, sharing the real stories and decisions behind their work.',
   },
 ];
 ---
 
 <section id="why-attend" class="why">
   <div class="why-inner">
-    <h2 class="why-title">Why Attend</h2>
+    <header class="why-head">
+      <h2 class="why-title" data-reveal>Worth stepping away from the keyboard for.</h2>
+      <p class="why-lede" data-reveal style="--reveal-delay: 90ms">
+        One day at The Midway with the engineers, founders, and architects putting AI
+        into production, plus the hands-on time to take it back to your own stack.
+      </p>
+    </header>
 
     <div class="why-grid">
-      <div class="features">
+      <ol class="features">
         {
-          features.map((f) => (
-            <div class="feature">
+          features.map((f, i) => (
+            <li class="feature" data-reveal style={`--reveal-delay: ${180 + i * 90}ms`}>
+              <span class="feature-index" aria-hidden="true">{f.index}</span>
               <h3>{f.title}</h3>
               <p>{f.body}</p>
-            </div>
+            </li>
           ))
         }
-      </div>
+      </ol>
 
-      <div class="why-photo">
+      <div class="why-photo" data-reveal-photo style="--reveal-delay: 220ms">
         <Image
           src={whyAttendPhoto}
           alt="Attendees networking beneath MongoDB banners in the venue at a .local event"
@@ -47,6 +57,28 @@ const features = [
   </div>
 </section>
 
+<script>
+  // Progressive enhancement: content is fully visible without JS. We only
+  // opt into the reveal once JS confirms it can run, then let an observer
+  // trigger the staggered entrance when the section scrolls into view.
+  const section = document.getElementById('why-attend');
+  if (section) {
+    section.classList.add('js-ready');
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(section);
+  }
+</script>
+
 <style>
   .why {
     background: #001e2b;
@@ -55,14 +87,32 @@ const features = [
     padding: clamp(72px, 10vw, 140px) 0 clamp(72px, 10vw, 140px) clamp(16px, 8%, 132px);
   }
 
-  .why-title {
-    font-family: 'Euclid Circular A', sans-serif;
-    font-weight: 500;
-    font-size: clamp(32px, 5vw, 56px);
-    line-height: 1.14;
-    color: #ffffff;
-    margin: 0 0 clamp(40px, 6vw, 72px);
+  .why-head {
+    max-width: 920px;
+    margin: 0 0 clamp(48px, 7vw, 88px);
     padding-right: clamp(16px, 8%, 132px);
+  }
+
+  .why-title {
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .why-lede {
+    margin: clamp(20px, 2.5vw, 28px) 0 0;
+    max-width: 620px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: clamp(18px, 1.6vw, 21px);
+    line-height: 1.6;
+    color: #b8c4c2;
+    text-wrap: pretty;
   }
 
   .why-grid {
@@ -75,42 +125,58 @@ const features = [
   .features {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .feature {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding-bottom: 32px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: clamp(20px, 3vw, 44px);
+    row-gap: 14px;
+    padding: 36px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   }
 
   .feature:first-child {
-    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
   }
 
-  .feature:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
+  .feature-index {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+    font-family: 'MongoDB Value Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(44px, 5vw, 64px);
+    line-height: 0.86;
+    color: #00ed64;
+    font-variant-numeric: tabular-nums;
   }
 
   .feature h3 {
+    grid-column: 2;
+    grid-row: 1;
     font-family: 'Euclid Circular A', sans-serif;
     font-weight: 600;
-    font-size: clamp(24px, 3.2vw, 32px);
-    line-height: 1.25;
+    font-size: clamp(24px, 3.2vw, 34px);
+    line-height: 1.2;
     color: #ffffff;
     margin: 0;
+    text-wrap: balance;
   }
 
   .feature p {
+    grid-column: 2;
+    grid-row: 2;
     font-family: 'Euclid Circular A', sans-serif;
     font-weight: 400;
     font-size: 18px;
-    line-height: 32px;
+    line-height: 1.7;
     color: #b8c4c2;
-    max-width: 576px;
+    max-width: 540px;
     margin: 0;
   }
 
@@ -130,6 +196,36 @@ const features = [
     object-position: center;
   }
 
+  /* ---- Orchestrated reveal (enhancement only) ---------------------------
+     Base state is fully visible. Hidden start states are scoped to
+     .js-ready, so a no-JS render shows everything, and gated behind
+     prefers-reduced-motion so motion-sensitive users skip the movement. */
+  @media (prefers-reduced-motion: no-preference) {
+    .why.js-ready [data-reveal],
+    .why.js-ready [data-reveal-photo] {
+      opacity: 0;
+      transition:
+        opacity 640ms var(--flora-motion-easing-expressive),
+        transform 640ms var(--flora-motion-easing-expressive);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .why.js-ready [data-reveal] {
+      transform: translateY(var(--flora-motion-distance-reveal));
+    }
+
+    .why.js-ready [data-reveal-photo] {
+      transform: scale(1.06);
+    }
+
+    .why.js-ready.in-view [data-reveal],
+    .why.js-ready.in-view [data-reveal-photo] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   @media (max-width: 1024px) {
     .why {
       /* Restore symmetric padding once the photo stacks below */
@@ -139,6 +235,10 @@ const features = [
     .why-grid {
       grid-template-columns: 1fr;
       gap: clamp(32px, 6vw, 56px);
+    }
+
+    .feature-index {
+      font-size: clamp(38px, 9vw, 48px);
     }
 
     .why-photo {

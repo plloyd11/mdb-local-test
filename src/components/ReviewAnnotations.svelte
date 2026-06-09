@@ -26,8 +26,8 @@
       label: 'Hero',
       anchor: '.headline',
       body: [
-        'The hero opens with one outcome-driven promise — “Ship your AI vision, faster” — so visitors grasp why this event matters within the first second, before they scroll.',
-        'Event essentials live in a glassy eyebrow above the headline, while a looping ambient video carries the in-person energy without competing with the copy. Two CTAs split intent: a high-contrast Register Now for ready attendees, and a quieter View Agenda for those still evaluating.',
+        'The hero section establishes a high-energy tone within the first three seconds. The headline frames the flagship series around an immediate, high-value outcome, while the countdown ticker and location anchor create implicit urgency to drive action.',
+        'We deploy a dual-CTA strategy to segment traffic immediately: a high-contrast "Register Now" button paths high-intent users directly to checkout, while a secondary "View Agenda" button captures exploratory users. The underlying visual framework is purpose-built to house a high-impact sizzle reel, instantly signaling a premium, can\'t-miss event experience the moment the page loads.',
       ],
     },
     {
@@ -35,8 +35,8 @@
       label: 'Why Attend',
       anchor: '.why-title',
       body: [
-        'Directly below the fold we answer the visitor’s first question — “what’s in it for me?” — before asking for anything in return.',
-        'Three benefit-led pillars (hands-on AI-native development, career growth, and learning from industry trailblazers) stay scannable at a glance, with supporting detail for anyone who wants to go deeper. A full-bleed photo of a real .local crowd grounds the value props in the experience of being in the room.',
+        'Rather than overwhelming users with a dense logistical schedule early on, we use a scannable, three-pillar benefit framework mapped to distinct attendee motivations.',
+        'The adjacent high-energy photography acts as an intentional narrative layer. By showing real developers actively collaborating under the flagship branding, we humanize the tech ecosystem and allow prospective attendees to instantly visualize themselves in the room, turning abstract benefits into concrete emotional investment.',
       ],
     },
     {
@@ -44,8 +44,8 @@
       label: 'Featured Speakers',
       anchor: '#speakers .section-header-title',
       body: [
-        'People are the strongest proof point for an event, so we surface the lineup early. Leading with recognizable names — MongoDB’s CEO, well-known investors, and hands-on ML engineers — signals the caliber of the room at a glance.',
-        'The mix is deliberate: aspirational star power (founders, VCs) alongside practitioners who actually ship AI in production, so the lineup reads as both worth attending and relevant to a working developer. Cards link out to full bios for anyone vetting the agenda before committing.',
+        'People are the strongest proof point for an event, so we surface the lineup early. This section serves as a powerful credibility loop designed to eliminate buyer friction and build trust.',
+        'The clean, uniform card layout is optimized for rapid scannability, proving at a single glance that the sheer caliber of expertise justifies the attendee\'s time and budget.',
       ],
     },
     {
@@ -53,8 +53,8 @@
       label: 'Ticket Pricing',
       anchor: '.pricing-title',
       body: [
-        'Pricing is shown openly rather than hidden behind a form — transparency lowers friction and builds trust. The tiered structure (Super Early Bird → General) makes the cost of waiting explicit, creating gentle urgency to register now.',
-        'Pairing the tiers with a clear “every ticket includes” list reframes the decision from a cost into a value exchange, and the photo of a full session room reinforces the in-person payoff right before the final Register CTA.',
+        'This component uses transparent, tiered pricing to leverage the psychological principle of loss aversion, incentivizing immediate registration to lock in the lowest rate.',
+        'To overcome budget objections and streamline corporate expense approvals, we position a distinct "Every ticket includes" value checklist directly alongside the costs. This structure shifts the user\'s cognitive focus from an expense to a high-ROI investment, backed by immersive presentation imagery that reinforces the premium physical scale of a flagship event.',
       ],
     },
     {
@@ -62,11 +62,28 @@
       label: 'Featured Sessions',
       anchor: '#sessions .section-header-title',
       body: [
-        'A preview of the agenda answers the practical question behind every registration: “is the content actually worth my day?” Concrete talks, named presenters, and topic pills let visitors quickly self-identify with a track.',
-        'We show a representative sample rather than the full schedule to keep the page scannable, with a clear path to the complete agenda for those who want to go deeper before deciding.',
+        'This section provides the tangible proof points that back up our high-level marketing narrative. By highlighting concrete, tactical sessions across diverse, tagged tracks (Data Modeling, Analytics, Microservices), we allow different technical personas to quickly validate that the agenda is directly relevant to their daily workflows.',
+        'It eliminates abstract uncertainty for middle-of-the-funnel visitors, using a "View all sessions" secondary action as a progressive disclosure path to keep the landing page light, fast, and hyper-scannable.',
       ],
     },
   ];
+
+  // Stage-setting overview shown in a centered modal (auto-opens once per visitor).
+  const intro = {
+    eyebrow: 'Stakeholder review',
+    title: 'Context',
+    context: [
+      'This interactive prototype introduces the new design framework for the MongoDB .local flagship event series, using the San Francisco event as our structural baseline. All copy, prices, and session tracks are currently placeholders.',
+      'Before diving into visual aesthetics, this walkthrough is designed to align us on product strategy, user psychology, and conversion intent. Use the numbered markers down the left edge of the page to explore the design rationale behind each modular section.',
+    ],
+    goals: [
+      'Cultivate High-Energy Event Narrative: We leverage photography and a high-impact sizzle reel to tell a cohesive, immersive story. This captures the energy of a live flagship experience to turn passive interest into active registrations.',
+      'Maximize Immediate Conversion: Capture and communicate the core value proposition within the first three seconds of landing to drive registrations.',
+      'Establish Instant Credibility: Leverage a structured matrix of industry-leading speakers, enterprise validation, and transparent pricing to eliminate friction and build buyer trust.',
+      'Optimize for Scannability: Present a high-level, benefit-first narrative layout that allows casual browsers to scan quickly, while giving high-intent users low-friction pathways to dive deeper on demand.',
+    ],
+    cta: 'Start the walkthrough',
+  };
 
   let reviewOn = $state(true);
   // Identity is keyed on the stable `num` string, not the object — assigning an
@@ -82,13 +99,27 @@
   let drawerEl: HTMLElement;
   let closeEl: HTMLButtonElement;
 
+  let overviewOpen = $state(false);
+  let overlayEl: HTMLDivElement;
+  let overviewEl: HTMLElement;
+  let overviewCloseEl: HTMLButtonElement;
+  let overviewCtaEl: HTMLButtonElement;
+
   let openTl: gsap.core.Timeline | null = null;
+  let overviewTl: gsap.core.Timeline | null = null;
   let ro: ResizeObserver | null = null;
   let rafId = 0;
   let lateTimers: ReturnType<typeof setTimeout>[] = [];
   let lastFocused: HTMLElement | null = null;
+  let overviewLastFocused: HTMLElement | null = null;
 
   const STORE_KEY = 'riff-review-notes';
+  const INTRO_KEY = 'riff-review-intro-seen';
+
+  // Below PUSH_MIN there's no room to push the page aside → fall back to overlay.
+  const PUSH_MIN = 1024;
+  let pushActive = false;
+  let pinRaf = 0;
 
   // Read a Flora motion token (seconds) so GSAP stays in sync with the CSS
   // tokens — including the reduced-motion overrides in global.css.
@@ -112,6 +143,39 @@
   function scheduleMeasure() {
     cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(measure);
+  }
+
+  // ---------- Push (page reflows aside instead of being covered) ----------
+  function prefersPush(): boolean {
+    return typeof window !== 'undefined' && window.innerWidth >= PUSH_MIN;
+  }
+
+  // Set the `--review-push` inset (px) that reflows the page. Because reflow
+  // changes page height, the section being reviewed would drift — so we pin its
+  // viewport position across the transition with a short rAF loop (which also
+  // resolves in ~1 frame under reduced-motion, where the transition is instant).
+  function setPush(px: number) {
+    const durMs = motionToken('--flora-motion-duration-enter', 0.25) * 1000;
+    const anchorEl = activeAnn ? document.querySelector(activeAnn.anchor) : null;
+    const target = anchorEl ? anchorEl.getBoundingClientRect().top : null;
+
+    document.documentElement.style.setProperty('--review-push', `${px}px`);
+
+    cancelAnimationFrame(pinRaf);
+    if (anchorEl && target != null) {
+      const start = performance.now();
+      const step = () => {
+        const delta = anchorEl.getBoundingClientRect().top - target;
+        if (Math.abs(delta) > 0.5) window.scrollBy(0, delta);
+        if (performance.now() - start < durMs + 80) pinRaf = requestAnimationFrame(step);
+      };
+      pinRaf = requestAnimationFrame(step);
+    }
+  }
+
+  function clearPush() {
+    pushActive = false;
+    document.documentElement.style.setProperty('--review-push', '0px');
   }
 
   // ---------- Dot visibility (toggle) ----------
@@ -158,12 +222,18 @@
         gsap.set([backdropEl, drawerEl], { visibility: 'hidden' });
         activeNum = null;
         document.body.style.overflow = '';
+        if (pushActive) clearPush();
         lastFocused?.focus?.();
         lastFocused = null;
       },
     });
-    openTl.set([backdropEl, drawerEl], { visibility: 'visible' });
-    openTl.to(backdropEl, { autoAlpha: 1, duration: enter, ease: 'power2.out' }, 0);
+    openTl.set(drawerEl, { visibility: 'visible' });
+    // Push mode reflows the page aside, so skip the dim backdrop entirely —
+    // the whole design stays visible. Overlay mode keeps the dimming.
+    if (!pushActive) {
+      openTl.set(backdropEl, { visibility: 'visible' });
+      openTl.to(backdropEl, { autoAlpha: 1, duration: enter, ease: 'power2.out' }, 0);
+    }
     openTl.fromTo(
       drawerEl,
       { xPercent: -100 },
@@ -206,7 +276,16 @@
     lastFocused = trigger;
     activeNum = a.num;
     await tick();
-    document.body.style.overflow = 'hidden';
+
+    pushActive = prefersPush();
+    if (pushActive) {
+      // Reflow the page aside; keep it scrollable/interactive (no scroll lock).
+      setPush(drawerEl.getBoundingClientRect().width);
+    } else {
+      // Overlay fallback: dim + lock scroll (the original behavior).
+      document.body.style.overflow = 'hidden';
+    }
+
     buildOpenTl();
     openTl?.timeScale(1).play(0);
     closeEl?.focus({ preventScroll: true });
@@ -214,13 +293,91 @@
 
   function closeDrawer() {
     if (!activeNum || !openTl) return;
+    // Animate the page back into place in sync with the drawer sliding out.
+    if (pushActive) setPush(0);
     const enter = motionToken('--flora-motion-duration-enter', 0.25);
     const exit = motionToken('--flora-motion-duration-exit', 0.2);
     openTl.timeScale(exit > 0 ? (enter * 1.2) / exit : 1).reverse();
   }
 
+  // ---------- Overview modal ----------
+  function buildOverviewTl() {
+    overviewTl?.kill();
+    const enter = motionToken('--flora-motion-duration-enter', 0.25);
+    const stagger = motionToken('--flora-motion-delay-stagger', 0.06);
+    const items = overviewEl.querySelectorAll('[data-ov-stagger]');
+
+    overviewTl = gsap.timeline({
+      paused: true,
+      onReverseComplete: () => {
+        gsap.set([overlayEl, overviewEl], { visibility: 'hidden' });
+        overviewOpen = false;
+        document.body.style.overflow = '';
+        overviewLastFocused?.focus?.({ preventScroll: true });
+        overviewLastFocused = null;
+      },
+    });
+    overviewTl.set([overlayEl, overviewEl], { visibility: 'visible' });
+    overviewTl.to(overlayEl, { autoAlpha: 1, duration: enter, ease: 'power2.out' }, 0);
+    // Card transform is animated here — centering lives on the flex wrapper, not
+    // a transform on the card, so GSAP never fights a CSS translate.
+    overviewTl.fromTo(
+      overviewEl,
+      { autoAlpha: 0, y: 12, scale: 0.98 },
+      { autoAlpha: 1, y: 0, scale: 1, duration: enter * 1.2, ease: 'power3.out' },
+      0
+    );
+    overviewTl.fromTo(
+      items,
+      { autoAlpha: 0, y: 12 },
+      { autoAlpha: 1, y: 0, duration: enter, stagger, ease: 'power2.out' },
+      enter * 0.4
+    );
+  }
+
+  async function openOverview(trigger?: HTMLElement) {
+    if (overviewOpen) return;
+    overviewLastFocused = trigger ?? (document.activeElement as HTMLElement | null);
+    overviewOpen = true;
+    await tick();
+    document.body.style.overflow = 'hidden';
+    buildOverviewTl();
+    overviewTl?.timeScale(1).play(0);
+    overviewCtaEl?.focus({ preventScroll: true });
+  }
+
+  function closeOverview() {
+    if (!overviewOpen || !overviewTl) return;
+    try {
+      localStorage.setItem(INTRO_KEY, '1');
+    } catch {}
+    const enter = motionToken('--flora-motion-duration-enter', 0.25);
+    const exit = motionToken('--flora-motion-duration-exit', 0.2);
+    overviewTl.timeScale(exit > 0 ? (enter * 1.2) / exit : 1).reverse();
+  }
+
   function onKey(e: KeyboardEvent) {
-    if (e.key === 'Escape' && activeNum) closeDrawer();
+    if (e.key !== 'Escape') return;
+    if (overviewOpen) closeOverview();
+    else if (activeNum) closeDrawer();
+  }
+
+  function onResize() {
+    scheduleMeasure();
+    // If the drawer is open and the viewport crosses the push threshold, close
+    // it rather than leave a half-applied push/overlay state.
+    if (activeNum && prefersPush() !== pushActive) closeDrawer();
+  }
+
+  // Click anywhere outside the drawer (the page, or the overlay-mode backdrop)
+  // closes it. Clicks on a callout dot are ignored — those toggle/swap via
+  // their own handler. `activeNum` is already set on the opening click, and the
+  // dot lives inside `layerEl`, so opening never self-closes.
+  function onDocClick(e: MouseEvent) {
+    if (!activeNum) return;
+    const t = e.target as Node | null;
+    if (!t || drawerEl?.contains(t) || layerEl?.contains(t)) return;
+    closeDrawer();
   }
 
   onMount(() => {
@@ -233,24 +390,38 @@
 
     ro = new ResizeObserver(scheduleMeasure);
     ro.observe(document.body);
-    window.addEventListener('resize', scheduleMeasure, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
     window.addEventListener('load', measure);
     document.fonts?.ready.then(measure).catch(() => {});
     // Late passes catch lazy images / font swaps that shift layout.
     lateTimers = [setTimeout(measure, 300), setTimeout(measure, 1200)];
 
+    // Stage-setting overview: auto-open once per visitor, after the page paints.
+    let introSeen = false;
+    try {
+      introSeen = localStorage.getItem(INTRO_KEY) === '1';
+    } catch {}
+    if (!introSeen) lateTimers.push(setTimeout(() => openOverview(), 350));
+
     window.addEventListener('keydown', onKey);
+    document.addEventListener('click', onDocClick);
   });
 
   onDestroy(() => {
     ro?.disconnect();
     cancelAnimationFrame(rafId);
+    cancelAnimationFrame(pinRaf);
     lateTimers.forEach(clearTimeout);
     openTl?.kill();
-    window.removeEventListener('resize', scheduleMeasure);
+    overviewTl?.kill();
+    window.removeEventListener('resize', onResize);
     window.removeEventListener('load', measure);
     window.removeEventListener('keydown', onKey);
-    if (typeof document !== 'undefined') document.body.style.overflow = '';
+    document.removeEventListener('click', onDocClick);
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+      document.documentElement.style.setProperty('--review-push', '0px');
+    }
   });
 </script>
 
@@ -278,11 +449,11 @@
   {/each}
 </div>
 
-<!-- Backdrop + drawer -->
+<!-- Backdrop (overlay mode only) — closing is handled by the document click
+     listener so it works for both overlay and push (no backdrop) modes. -->
 <div
   bind:this={backdropEl}
   class="review-backdrop"
-  onclick={closeDrawer}
   aria-hidden="true"
 ></div>
 
@@ -316,28 +487,108 @@
   {/if}
 </aside>
 
-<!-- Toggle — docks half-hidden at the bottom edge; lifts + brightens on hover -->
-<button
-  class="review-fab"
-  class:is-on={reviewOn}
-  type="button"
-  aria-pressed={reviewOn}
-  onclick={toggleReview}
->
-  <span class="review-fab__dot" aria-hidden="true"></span>
-  <span class="review-fab__label">{reviewOn ? 'Hide notes' : 'Review notes'}</span>
-</button>
+<!-- Overview modal — stage-setting "Context & goals" -->
+<div
+  bind:this={overlayEl}
+  class="review-modal-backdrop"
+  onclick={closeOverview}
+  aria-hidden="true"
+></div>
+
+<div class="review-modal-wrap">
+  <section
+    bind:this={overviewEl}
+    class="review-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="review-modal-title"
+  >
+    <div class="review-modal__glow" aria-hidden="true"></div>
+    <button
+      bind:this={overviewCloseEl}
+      class="review-modal__close"
+      type="button"
+      aria-label="Close"
+      onclick={closeOverview}
+    >
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="review-modal__inner">
+      <p class="review-modal__eyebrow" data-ov-stagger>{intro.eyebrow}</p>
+      <h2 class="review-modal__title" id="review-modal-title" data-ov-stagger>{intro.title}</h2>
+      {#each intro.context as p}
+        <p class="review-modal__context" data-ov-stagger>{p}</p>
+      {/each}
+      <p class="review-modal__goals-label" data-ov-stagger>Goals</p>
+      <ul class="review-modal__goals">
+        {#each intro.goals as g}
+          <li data-ov-stagger><span class="review-modal__bullet" aria-hidden="true"></span>{g}</li>
+        {/each}
+      </ul>
+      <button
+        bind:this={overviewCtaEl}
+        class="review-modal__cta"
+        type="button"
+        data-ov-stagger
+        onclick={closeOverview}
+      >
+        {intro.cta}
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- Review toolbar — docks half-hidden at the bottom edge; lifts + brightens on hover -->
+<div class="review-dock">
+  <button
+    class="review-dock__btn"
+    type="button"
+    aria-haspopup="dialog"
+    onclick={(e) => openOverview(e.currentTarget as HTMLElement)}
+  >
+    <span class="review-dock__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+        <path d="M12 11.5v4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="7.8" r="1.2" fill="currentColor" />
+      </svg>
+    </span>
+    <span class="review-dock__label">Context &amp; goals</span>
+  </button>
+
+  <span class="review-dock__sep" aria-hidden="true"></span>
+
+  <button
+    class="review-dock__btn review-dock__btn--notes"
+    class:is-on={reviewOn}
+    type="button"
+    aria-pressed={reviewOn}
+    onclick={toggleReview}
+  >
+    <span class="review-fab__dot" aria-hidden="true"></span>
+    <span class="review-dock__label">{reviewOn ? 'Hide notes' : 'Show notes'}</span>
+  </button>
+</div>
 
 <style>
   /* ---------- Dot layer ---------- */
   .review-layer {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    /* Ride along with the push so the dots sit just right of the open drawer
+       (clickable to swap sections). `width: calc(...)` avoids horizontal
+       overflow. Vertical positions re-measure via the ResizeObserver. */
+    left: var(--review-push, 0px);
+    width: calc(100% - var(--review-push, 0px));
     height: 0; /* children are absolutely positioned in document coords */
     z-index: 40;
     pointer-events: none;
+    transition:
+      left var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      width var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
     --dot-left: clamp(12px, 3.2vw, 40px);
     --review-green: #6fce00;
     --review-green-light: #98ff00;
@@ -474,11 +725,12 @@
       transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
   }
 
+  /* Hint shows only on hover/keyboard-focus — not while the dot's drawer is
+     open (.is-active), so it doesn't linger over the design. */
   .review-dot:hover .review-dot__hint,
-  .review-dot:focus-visible .review-dot__hint,
-  .review-dot.is-active .review-dot__hint {
+  .review-dot:focus-visible .review-dot__hint {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0, -50%);
   }
 
   /* ---------- Backdrop ---------- */
@@ -611,48 +863,41 @@
     color: #b8c4c2;
   }
 
-  /* ---------- Toggle ---------- */
-  .review-fab {
+  /* ---------- Review toolbar (bottom-left dock) ---------- */
+  .review-dock {
     position: fixed;
     left: clamp(16px, 3vw, 32px);
     bottom: 0;
     z-index: 80;
     display: inline-flex;
     align-items: center;
-    gap: 0;
-    padding: 13px 16px;
-    border-radius: 14px 14px 0 0;
+    gap: 2px;
+    padding: 10px 14px;
+    border-radius: 16px 16px 0 0;
     border: 1px solid rgba(152, 255, 0, 0.18);
     background: rgba(5, 20, 29, 0.72);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    font-family: 'Euclid Circular A', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    /* Docked: tucked ~halfway below the viewport edge, peeking as a handle.
-       The label collapses so only the pulsing dot shows when docked. */
+    /* Docked: tucked ~halfway below the viewport edge; only the icons peek.
+       Labels collapse so the docked handle reads as a small toolbar tab. */
     opacity: 0.82;
     transform: translateY(50%);
     transition:
       transform var(--flora-motion-duration-enter) var(--flora-motion-easing-expressive),
       opacity var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
       border-radius var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
-      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
       border-color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
       box-shadow var(--flora-motion-duration-moderate) var(--flora-motion-easing-emphasized);
   }
 
-  /* Invisible hover bridge: when the button lifts on hover it moves up and away
-     from the cursor near the bottom edge — without this the cursor would fall
-     into the gap, drop :hover, and the button would flicker up/down. The bridge
-     extends the hit area down to (and past) the viewport edge. At rest it sits
-     below the fold, so it never intercepts page clicks. */
-  .review-fab::after {
+  /* Invisible hover bridge: when the dock lifts it moves up and away from the
+     cursor near the bottom edge — without this the cursor falls into the gap,
+     drops :hover, and the dock flickers up/down. The bridge extends the hit
+     area down past the viewport edge. At rest it sits below the fold, so it
+     never intercepts page clicks. */
+  .review-dock::after {
     content: '';
     position: absolute;
     left: 0;
@@ -662,21 +907,60 @@
     background: transparent;
   }
 
-  /* :focus (not just :focus-visible) so a tap on touch also reveals the label */
-  .review-fab:hover,
-  .review-fab:focus {
-    outline: none;
+  /* :focus-within (not just :hover) so keyboard/touch also reveals the labels */
+  .review-dock:hover,
+  .review-dock:focus-within {
     opacity: 1;
     transform: translateY(-14px);
     border-radius: 999px;
-    border-color: rgba(152, 255, 0, 0.55);
+    border-color: rgba(152, 255, 0, 0.5);
     background: rgba(8, 26, 37, 0.96);
     box-shadow:
       0 14px 34px rgba(0, 0, 0, 0.45),
-      0 0 0 4px rgba(152, 255, 0, 0.18);
+      0 0 0 4px rgba(152, 255, 0, 0.16);
   }
 
-  .review-fab__label {
+  .review-dock__btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #ffffff;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
+  }
+
+  .review-dock__btn:hover,
+  .review-dock__btn:focus-visible {
+    outline: none;
+    background: rgba(152, 255, 0, 0.1);
+  }
+
+  .review-dock__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    color: #98ff00;
+  }
+
+  .review-dock__sep {
+    width: 1px;
+    align-self: stretch;
+    margin: 6px 2px;
+    background: rgba(152, 255, 0, 0.18);
+  }
+
+  .review-dock__label {
     max-width: 0;
     margin-left: 0;
     overflow: hidden;
@@ -687,13 +971,14 @@
       opacity var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
   }
 
-  .review-fab:hover .review-fab__label,
-  .review-fab:focus .review-fab__label {
-    max-width: 120px;
-    margin-left: 10px;
+  .review-dock:hover .review-dock__label,
+  .review-dock:focus-within .review-dock__label {
+    max-width: 150px;
+    margin-left: 9px;
     opacity: 1;
   }
 
+  /* Notes-toggle pulsing dot */
   .review-fab__dot {
     position: relative;
     width: 10px;
@@ -703,12 +988,12 @@
     transition: background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
   }
 
-  .review-fab.is-on .review-fab__dot {
+  .review-dock__btn--notes.is-on .review-fab__dot {
     background: linear-gradient(135deg, #98ff00, #6fce00);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .review-fab.is-on .review-fab__dot::after {
+    .review-dock__btn--notes.is-on .review-fab__dot::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -716,5 +1001,179 @@
       border: 2px solid #98ff00;
       animation: review-pulse 2.4s var(--flora-motion-easing-emphasized) infinite;
     }
+  }
+
+  /* ---------- Overview modal ---------- */
+  .review-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    background: rgba(0, 12, 18, 0.62);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Full-screen flex wrapper centers the card. Centering lives HERE, never as a
+     transform on the card itself — GSAP owns the card's transform. */
+  .review-modal-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 96;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 40px);
+    pointer-events: none;
+  }
+
+  .review-modal {
+    position: relative;
+    width: min(560px, 100%);
+    max-height: calc(100dvh - clamp(32px, 8vw, 80px));
+    overflow-y: auto;
+    background: #05141d;
+    border: 1px solid rgba(152, 255, 0, 0.18);
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    pointer-events: auto;
+    visibility: hidden;
+  }
+
+  .review-modal__glow {
+    position: absolute;
+    top: -140px;
+    left: -120px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(152, 255, 0, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .review-modal__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #c1c7c6;
+    cursor: pointer;
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      border-color var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback);
+  }
+
+  .review-modal__close:hover {
+    background: rgba(152, 255, 0, 0.12);
+    border-color: rgba(152, 255, 0, 0.4);
+    color: #ffffff;
+  }
+
+  .review-modal__inner {
+    position: relative;
+    padding: clamp(32px, 5vw, 48px);
+  }
+
+  .review-modal__eyebrow {
+    margin: 0 0 18px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #98ff00;
+  }
+
+  .review-modal__title {
+    margin: 0 0 24px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 32px);
+    line-height: 1.15;
+    color: #ffffff;
+  }
+
+  .review-modal__context {
+    margin: 0 0 16px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+    color: #b8c4c2;
+  }
+
+  .review-modal__goals-label {
+    margin: 28px 0 14px;
+    font-size: 32px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .review-modal__goals {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .review-modal__goals li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-size: 16px;
+    line-height: 26px;
+    color: #ededed;
+  }
+
+  .review-modal__bullet {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-top: 9px;
+    border-radius: 999px;
+    background: #009FFD
+  }
+
+  .review-modal__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--color-background-brand);
+    color: #001e2b;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      background var(--flora-motion-duration-feedback) var(--flora-motion-easing-feedback),
+      transform var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized),
+      box-shadow var(--flora-motion-duration-moderate) var(--flora-motion-easing-emphasized);
+  }
+
+  .review-modal__cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 5px rgba(152, 255, 0, 0.18);
+    border-radius: var(--radius-border-radius-circle);
+  }
+
+  .review-modal__cta:active {
+    transform: scale(0.99);
+    transition-duration: var(--flora-motion-duration-instant);
   }
 </style>

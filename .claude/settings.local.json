@@ -8,7 +8,21 @@
       "Read(//tmp/**)",
       "mcp__plugin_figma_figma__get_design_context",
       "WebFetch(domain:mdb-flora-motion.netlify.app)",
-      "Bash(pnpm build *)"
+      "Bash(pnpm build *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/ --max-time 3)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1440,3200 --screenshot=/tmp/riff-pricing.png \"http://localhost:4321/\")",
+      "Bash(echo \"exit:$?\")",
+      "Bash(ls -la /tmp/riff-pricing.png)",
+      "Bash(pkill -f \"remote-debugging-port=9222\")",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --hide-scrollbars --remote-debugging-port=9222 --user-data-dir=/tmp/riff-chrome-profile \"about:blank\")",
+      "Bash(curl -s http://localhost:9222/json/version)",
+      "Bash(pnpm dev *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/)",
+      "Bash(npx --yes puppeteer-cli screenshot \"http://localhost:4323/#why-attend\" /tmp/why-attend-after.png --width 1440 --height 900)",
+      "Bash(npx puppeteer-cli *)",
+      "Bash(node *)",
+      "Bash(screencapture -x /tmp/why-attend-screen.png)",
+      "Bash(lsof -ti:4321)"
     ]
   }
 }

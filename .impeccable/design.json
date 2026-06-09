@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-05T00:00:00Z",
+  "title": "Design System: MongoDB Marketing",
+  "extensions": {
+    "colorMeta": {
+      "deep-space": {
+        "role": "neutral",
+        "displayName": "Deep Space",
+        "canonical": "oklch(22.01% 0.044 230.19)",
+        "hex": "#001e2b",
+        "tonalRamp": [
+          "oklch(8% 0.035 230)",
+          "oklch(14% 0.04 230)",
+          "oklch(22% 0.044 230)",
+          "oklch(32% 0.044 230)",
+          "oklch(45% 0.040 230)",
+          "oklch(60% 0.030 230)",
+          "oklch(75% 0.018 230)",
+          "oklch(90% 0.008 230)"
+        ]
+      },
+      "forest-deep": {
+        "role": "secondary",
+        "displayName": "Forest Deep",
+        "canonical": "oklch(37.77% 0.073 171.71)",
+        "hex": "#023430",
+        "tonalRamp": [
+          "oklch(10% 0.04 171)",
+          "oklch(18% 0.055 171)",
+          "oklch(28% 0.065 171)",
+          "oklch(38% 0.073 171)",
+          "oklch(50% 0.072 171)",
+          "oklch(63% 0.065 171)",
+          "oklch(76% 0.052 171)",
+          "oklch(89% 0.035 171)"
+        ]
+      },
+      "forest-floor": {
+        "role": "secondary",
+        "displayName": "Forest Floor",
+        "canonical": "oklch(29.32% 0.05 186.49)",
+        "hex": "#013227",
+        "tonalRamp": [
+          "oklch(8% 0.03 186)",
+          "oklch(15% 0.04 186)",
+          "oklch(24% 0.048 186)",
+          "oklch(34% 0.052 186)",
+          "oklch(46% 0.052 186)",
+          "oklch(60% 0.048 186)",
+          "oklch(74% 0.038 186)",
+          "oklch(88% 0.022 186)"
+        ]
+      },
+      "charged-signal": {
+        "role": "primary",
+        "displayName": "Charged Signal",
+        "canonical": "oklch(82.54% 0.237 148.39)",
+        "hex": "#00ed64",
+        "tonalRamp": [
+          "oklch(10% 0.08 148)",
+          "oklch(20% 0.13 148)",
+          "oklch(30% 0.17 148)",
+          "oklch(42% 0.19 148)",
+          "oklch(54% 0.21 148)",
+          "oklch(65% 0.225 148)",
+          "oklch(74% 0.234 148)",
+          "oklch(88% 0.210 148)"
+        ]
+      },
+      "pine-active": {
+        "role": "primary",
+        "displayName": "Pine Active",
+        "canonical": "oklch(45.84% 0.096 165.11)",
+        "hex": "#00684a",
+        "tonalRamp": [
+          "oklch(10% 0.05 165)",
+          "oklch(18% 0.065 165)",
+          "oklch(28% 0.08 165)",
+          "oklch(38% 0.090 165)",
+          "oklch(50% 0.096 165)",
+          "oklch(63% 0.092 165)",
+          "oklch(76% 0.078 165)",
+          "oklch(90% 0.052 165)"
+        ]
+      },
+      "cool-mist": {
+        "role": "neutral",
+        "displayName": "Cool Mist",
+        "canonical": "oklch(79% 0.012 195)",
+        "hex": "#b8c4c2",
+        "tonalRamp": [
+          "oklch(14% 0.01 195)",
+          "oklch(25% 0.011 195)",
+          "oklch(38% 0.012 195)",
+          "oklch(52% 0.013 195)",
+          "oklch(64% 0.013 195)",
+          "oklch(75% 0.012 195)",
+          "oklch(84% 0.010 195)",
+          "oklch(94% 0.006 195)"
+        ]
+      },
+      "pure-white": {
+        "role": "neutral",
+        "displayName": "Pure White",
+        "canonical": "oklch(100% 0 263.28)",
+        "hex": "#ffffff",
+        "tonalRamp": [
+          "oklch(10% 0 263)",
+          "oklch(22% 0 263)",
+          "oklch(36% 0 263)",
+          "oklch(50% 0 263)",
+          "oklch(64% 0 263)",
+          "oklch(78% 0 263)",
+          "oklch(90% 0 263)",
+          "oklch(100% 0 263)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only. Uppercase treatment at this scale creates impact. Never use uppercase below Display size."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings needing editorial weight: pricing, featured content, event titles. The serif instrument — use when hierarchy needs a material change, not just a size change."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headers and sub-section labels. Medium weight; holds authority without shouting."
+      },
+      "body": {
+        "displayName": "Body Large",
+        "purpose": "Lead paragraphs, feature descriptions, main section copy. Max line length 65–72ch."
+      },
+      "label": {
+        "displayName": "Label / Body Base",
+        "purpose": "Standard body, nav items, card text, form fields, benefit lists."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code snippets, version numbers, technical strings."
+      }
+    },
+    "shadows": [
+      {
+        "name": "nav-float",
+        "value": "0 3px 20px rgba(0,0,0,0.15)",
+        "purpose": "Floating pill nav — ambient diffuse, wide blur, low opacity. Signals the nav is above the scroll."
+      },
+      {
+        "name": "nav-stuck",
+        "value": "0 2px 8px rgba(0,0,0,0.08)",
+        "purpose": "Edge-to-edge nav when scrolled — structural minimum, tighter blur."
+      },
+      {
+        "name": "button-glow-green",
+        "value": "0 0 0 6px color-mix(in oklch, #00ed64 45%, transparent)",
+        "purpose": "Primary CTA hover ring. Not ambient — a radial spatial signal that the button's interaction radius has expanded."
+      },
+      {
+        "name": "button-glow-white",
+        "value": "0 0 0 6px color-mix(in oklch, #ffffff 18%, transparent)",
+        "purpose": "Secondary/ghost button hover ring on dark backgrounds."
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-feedback",
+        "value": "150ms",
+        "purpose": "Color state changes: hover colors, active text, icon tints."
+      },
+      {
+        "name": "duration-enter",
+        "value": "250ms",
+        "purpose": "Elements appearing, button morph, nav collapse, overlay open."
+      },
+      {
+        "name": "duration-exit",
+        "value": "200ms",
+        "purpose": "Elements leaving. Nav overlay close uses this via reversed enter timeline."
+      },
+      {
+        "name": "duration-expressive",
+        "value": "500ms",
+        "purpose": "Showcase moments: photo zoom on card hover, countdown clock morphs."
+      },
+      {
+        "name": "delay-stagger",
+        "value": "60ms",
+        "purpose": "Delay between staggered list items (e.g. mobile menu items fading in)."
+      },
+      {
+        "name": "easing-feedback",
+        "value": "ease",
+        "purpose": "Color transitions — symmetric, instant-feeling."
+      },
+      {
+        "name": "easing-enter",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Decelerating entrance — elements arriving, button morph, clip-path expand."
+      },
+      {
+        "name": "easing-movement",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Standard movement — nav transitions, layout shifts."
+      },
+      {
+        "name": "easing-expressive",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Photo zoom, soft-spring arrivals — fast start, long, luxurious tail."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "480px", "purpose": "Small mobile — reduce font sizes, collapse grid to 1col." },
+      { "name": "md", "value": "600px", "purpose": "Large mobile — benefits grid shifts to 1col." },
+      { "name": "lg", "value": "1024px", "purpose": "Primary tablet/desktop breakpoint — nav collapses to hamburger, speaker grid shifts to 2col, sections restack." },
+      { "name": "xl", "value": "1280px", "purpose": "Wide desktop." },
+      { "name": "container", "value": "1416px", "purpose": "Max content container width." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary CTA. Green fill, square-to-pill hover morph, glow ring.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Register Now</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; background: oklch(82.54% 0.237 148.39); color: oklch(22.01% 0.044 230.19); border: 1px solid oklch(45.84% 0.096 165.11); border-radius: 4px; font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 16px; text-decoration: none; cursor: pointer; transition: background 150ms ease, box-shadow 250ms cubic-bezier(0.4,0,0.2,1), transform 250ms cubic-bezier(0,0,0.2,1), border-radius 250ms cubic-bezier(0,0,0.2,1); } .ds-btn-primary:hover { background: oklch(73.5% 0.237 148.39); transform: translateY(-1px); border-radius: 9999px; box-shadow: 0 0 0 6px color-mix(in oklch, #00ed64 45%, transparent); } .ds-btn-primary:active { transform: scale(0.985); border-radius: 9999px; transition-duration: 100ms; } .ds-btn-primary:focus-visible { outline: 2px solid oklch(82.54% 0.237 148.39); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ghost/outline CTA for dark backgrounds. White border, same morph.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">View Agenda</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; background: transparent; color: #ffffff; border: 1px solid #ffffff; border-radius: 4px; font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 16px; text-decoration: none; cursor: pointer; transition: background 150ms ease, box-shadow 250ms cubic-bezier(0.4,0,0.2,1), transform 250ms cubic-bezier(0,0,0.2,1), border-radius 250ms cubic-bezier(0,0,0.2,1); } .ds-btn-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); border-radius: 9999px; box-shadow: 0 0 0 6px color-mix(in oklch, #ffffff 18%, transparent); } .ds-btn-secondary:active { transform: scale(0.985); border-radius: 9999px; transition-duration: 100ms; } .ds-btn-secondary:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Nav CTA",
+      "kind": "button",
+      "refersTo": "nav-cta",
+      "description": "Navigation register button. Dark fill, green hover, same morph.",
+      "html": "<a class=\"ds-nav-cta\" href=\"#\">Register Now</a>",
+      "css": ".ds-nav-cta { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; background: oklch(22.01% 0.044 230.19); color: #ffffff; border: none; border-radius: 4px; font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 18px; text-decoration: none; cursor: pointer; transition: background 150ms ease, box-shadow 250ms cubic-bezier(0.4,0,0.2,1), transform 250ms cubic-bezier(0,0,0.2,1), border-radius 250ms cubic-bezier(0,0,0.2,1); } .ds-nav-cta:hover { background: oklch(45.84% 0.096 165.11); transform: translateY(-1px); border-radius: 9999px; box-shadow: 0 0 0 6px color-mix(in oklch, #00ed64 35%, transparent); } .ds-nav-cta:active { transform: scale(0.985); border-radius: 9999px; transition-duration: 100ms; }"
+    },
+    {
+      "name": "Floating Pill Nav",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "White pill nav with logo, links, and register CTA. Collapses on scroll.",
+      "html": "<header class=\"ds-nav-shell\"><nav class=\"ds-nav\"><span class=\"ds-nav-brand\">MongoDB .local SF</span><div class=\"ds-nav-right\"><ul class=\"ds-nav-items\"><li><a href=\"#\">Why Attend</a></li><li><a href=\"#\">Speakers</a></li><li><a href=\"#\">Pricing</a></li></ul><a class=\"ds-nav-pill-cta\" href=\"#\">Register Now</a></div></nav></header>",
+      "css": ".ds-nav-shell { padding: 24px 32px; } .ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; background: #ffffff; padding: 12px 32px; border-radius: 16px; box-shadow: 0 3px 20px rgba(0,0,0,0.15); font-family: 'Euclid Circular A', system-ui, sans-serif; } .ds-nav-brand { font-weight: 600; font-size: 16px; color: oklch(22.01% 0.044 230.19); } .ds-nav-right { display: flex; align-items: center; gap: 32px; } .ds-nav-items { list-style: none; margin: 0; padding: 0; display: flex; gap: 32px; } .ds-nav-items a { font-weight: 500; font-size: 16px; color: oklch(22.01% 0.044 230.19); text-decoration: none; transition: color 150ms ease; } .ds-nav-items a:hover { color: oklch(45.84% 0.096 165.11); } .ds-nav-pill-cta { display: inline-flex; align-items: center; padding: 14px 24px; background: oklch(22.01% 0.044 230.19); color: #ffffff; border-radius: 4px; font-weight: 500; font-size: 15px; text-decoration: none; transition: background 150ms ease, border-radius 250ms cubic-bezier(0,0,0.2,1), transform 250ms cubic-bezier(0,0,0.2,1); } .ds-nav-pill-cta:hover { background: oklch(45.84% 0.096 165.11); border-radius: 9999px; transform: translateY(-1px); }"
+    },
+    {
+      "name": "Speaker Card",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Borderless speaker card. Photo with 16px radius and hover zoom; name + role below.",
+      "html": "<div class=\"ds-speaker-card\"><div class=\"ds-speaker-photo\"><img src=\"https://placehold.co/456x350/023430/ffffff?text=Speaker\" alt=\"Speaker photo\" /></div><div class=\"ds-speaker-copy\"><h3 class=\"ds-speaker-name\">Harry Stebbings</h3><p class=\"ds-speaker-role\">Founder, 20VC</p></div></div>",
+      "css": ".ds-speaker-card { display: flex; flex-direction: column; gap: 24px; } .ds-speaker-photo { position: relative; aspect-ratio: 456 / 350; border-radius: 16px; overflow: hidden; background: oklch(37.77% 0.073 171.71); } .ds-speaker-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform 500ms cubic-bezier(0.22,1,0.36,1); } .ds-speaker-card:hover .ds-speaker-photo img { transform: scale(1.06); } .ds-speaker-copy { display: flex; flex-direction: column; gap: 16px; } .ds-speaker-name { font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 500; font-size: 24px; line-height: 32px; color: #ffffff; margin: 0; } .ds-speaker-role { font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: oklch(79% 0.012 195); margin: 0; }"
+    },
+    {
+      "name": "Pricing Tier Row",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Table-style pricing tier: name + date left, Value Serif price right, hairline dividers.",
+      "html": "<div class=\"ds-pricing-tiers\"><div class=\"ds-tier\"><div class=\"ds-tier-info\"><span class=\"ds-tier-name\">Early Bird</span><span class=\"ds-tier-detail\">Starts June 1</span></div><span class=\"ds-tier-price\">$75</span></div><div class=\"ds-tier\"><div class=\"ds-tier-info\"><span class=\"ds-tier-name\">General</span><span class=\"ds-tier-detail\">Starts July 5</span></div><span class=\"ds-tier-price\">$125</span></div></div>",
+      "css": ".ds-pricing-tiers { font-family: 'Euclid Circular A', system-ui, sans-serif; } .ds-tier { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.16); } .ds-tier:last-child { border-bottom: 1px solid rgba(255,255,255,0.16); } .ds-tier-info { display: flex; flex-direction: column; gap: 4px; } .ds-tier-name { font-weight: 400; font-size: 20px; line-height: 32px; color: #ffffff; } .ds-tier-detail { font-weight: 400; font-size: 16px; line-height: 1.4; color: oklch(79% 0.012 195); } .ds-tier-price { font-family: 'MongoDB Value Serif', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1.1; color: #ffffff; white-space: nowrap; }"
+    },
+    {
+      "name": "Section Header",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Title + optional description left, arrow link right. Used at the top of content sections.",
+      "html": "<header class=\"ds-section-header\"><div class=\"ds-sh-copy\"><h2 class=\"ds-sh-title\">Featured speakers</h2><p class=\"ds-sh-desc\">Meet the founders, investors, and engineers shaping what's next in AI.</p></div><a class=\"ds-sh-link\" href=\"#\">View all speakers <svg width=\"6\" height=\"10\" viewBox=\"0 0 6 10\" fill=\"none\"><path d=\"M1 1l4 4-4 4\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a></header>",
+      "css": ".ds-section-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px 32px; } .ds-sh-copy { display: flex; flex-direction: column; gap: 16px; flex: 1 0 280px; } .ds-sh-title { font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 500; font-size: 28px; line-height: 1.33; color: #ffffff; margin: 0; } .ds-sh-desc { font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: oklch(79% 0.012 195); margin: 0; } .ds-sh-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 500; font-size: 16px; color: #ffffff; text-decoration: none; flex-shrink: 0; transition: color 150ms ease; } .ds-sh-link:hover { color: oklch(82.54% 0.237 148.39); } .ds-sh-link svg { transition: transform 250ms cubic-bezier(0.4,0,0.2,1); } .ds-sh-link:hover svg { transform: translateX(2px); }"
+    },
+    {
+      "name": "Feature List Item",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Horizontal-rule divided content row. Heading + body, no card chrome.",
+      "html": "<div class=\"ds-feature\"><h3 class=\"ds-feature-title\">AI-Native Development</h3><p class=\"ds-feature-body\">Get hands on with bootcamps, learn about the latest AI developments, and turn your proof-of-concepts into production.</p></div>",
+      "css": ".ds-feature { display: flex; flex-direction: column; gap: 24px; padding: 32px 0; border-bottom: 1px solid rgba(255,255,255,0.16); } .ds-feature-title { font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 600; font-size: 28px; line-height: 1.25; color: #ffffff; margin: 0; } .ds-feature-body { font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 400; font-size: 18px; line-height: 32px; color: oklch(79% 0.012 195); max-width: 576px; margin: 0; }"
+    },
+    {
+      "name": "Benefit Item",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Checkbox list item with green checkmark. Used in ticket benefit lists.",
+      "html": "<ul class=\"ds-benefits\"><li class=\"ds-benefit\"><svg class=\"ds-benefit-check\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M3 8.5 6.5 12 13 4.5\" stroke=\"#00ed64\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>Sessions, panels &amp; demos</span></li><li class=\"ds-benefit\"><svg class=\"ds-benefit-check\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M3 8.5 6.5 12 13 4.5\" stroke=\"#00ed64\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>MongoDB Expert access</span></li></ul>",
+      "css": ".ds-benefits { list-style: none; margin: 0; padding: 0; } .ds-benefit { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-family: 'Euclid Circular A', system-ui, sans-serif; font-weight: 400; font-size: 18px; line-height: 32px; color: #ffffff; } .ds-benefit-check { flex-shrink: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signal in the Dark",
+    "overview": "MongoDB's marketing system operates on a specific material logic: deep navy as the medium, electric green as the transmission. Surfaces are dark not because it's fashionable but because that contrast is load-bearing — MongoDB green reads as a live indicator against it, exactly as it would in a terminal or a monitoring dashboard. Sections don't glow or float; they hold. The system has the weight of infrastructure and the directness of tooling.\n\nThis design system is the visual foundation for all MongoDB marketing surfaces: event pages, product marketing, campaign work, technical content, and the exploratory riffs that feed into mongodb.com. It is built on MongoDB's Flora token system — a comprehensive set of OKLCH color values, spacing increments, typographic roles, and motion tokens that has been production-hardened across the real marketing site.\n\nWhat this system rejects: SaaS conference furniture (hero metrics, sponsor logo walls, glassmorphism cards), startup growth-marketing aesthetics (gradient text, superlatives, emoji CTAs), dry enterprise design (gray, flat, joyless), and the AI-generated default aesthetic (cream/beige body backgrounds, Untitled UI component-library feel, eyebrow-on-every-section scaffolding).",
+    "keyCharacteristics": [
+      "Deep navy dominates surface area; electric green is an accent, not a wallpaper",
+      "Typography plays two distinct instruments: Value Serif for editorial authority, Euclid Circular A for clarity and precision",
+      "Motion follows Flora tokens — purposeful, calibrated, never decorative",
+      "Layouts earn their asymmetry; photo bleeds and full-height splits are structural, not ornamental",
+      "Every surface must answer: why would a technical visitor stop here?"
+    ],
+    "rules": [
+      {
+        "name": "The One Green Rule",
+        "body": "Charged Signal covers ≤ 15% of any given screen. The deep navy is the dominant surface; the green is the indicator light. Flooding a hero or section background with brand green turns signal into noise.",
+        "section": "colors"
+      },
+      {
+        "name": "The No-Warmth Rule",
+        "body": "MongoDB's neutrals tilt blue-green, not warm gray. Cool Mist (#b8c4c2) is the correct muted text. Substituting a warm or yellow-gray alternative breaks the brand temperature.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Instrument Rule",
+        "body": "Value Serif and Euclid Circular A are distinct instruments: use them in contrast, never in competition. A section using Value Serif for the h2 uses Euclid Circular A for everything else.",
+        "section": "typography"
+      },
+      {
+        "name": "The Uppercase Ceiling",
+        "body": "Uppercase is reserved for Display-scale headings (≥ 3rem) where scale already provides legibility. Labels, nav items, and body copy: always sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Content sections have no box-shadow. If a card or section needs shadow to feel present, the background color is wrong. Fix the surface, don't add lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Deep Space (#001e2b) as the default dark surface. Its specific blue-green tint is the brand.",
+      "Do keep Charged Signal green for interactive affordances and active states only — its power is in rarity.",
+      "Do use MongoDB Value Serif for editorial-weight headings, and Euclid Circular A for everything else.",
+      "Do follow Flora motion tokens: 150ms for color shifts, 250ms for appearing elements, 500ms for showcase moments.",
+      "Do use tonal surface changes as the primary depth signal. Reserve shadows for genuinely lifted elements.",
+      "Do let photos and media bleed to container or viewport edges when the layout calls for it.",
+      "Do use horizontal-rule dividers instead of card chrome for list-based content."
+    ],
+    "donts": [
+      "Don't use gradient text (background-clip: text with a gradient). Emphasis through weight or size only.",
+      "Don't use the SaaS conference template: hero metrics + stats, identical card grids, sponsor logo walls.",
+      "Don't use startup growth-marketing aesthetics: superlatives, emoji CTAs, social-proof counters.",
+      "Don't soften the palette toward warm gray or beige. The neutral axis tilts blue-green.",
+      "Don't use the AI-generated default aesthetic: cream/beige backgrounds, glassmorphism cards, eyebrows on every section.",
+      "Don't use border-left or border-right wider than 1px as a colored accent on cards or callouts.",
+      "Don't use all-caps body copy. Uppercase for Display-scale hero headings only.",
+      "Don't exceed 15% surface coverage with Charged Signal green on any given screen.",
+      "Don't add box-shadows to content sections or cards at rest."
+    ]
+  }
+}

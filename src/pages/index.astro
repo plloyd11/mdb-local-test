@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import HeroNav from '../components/HeroNav.svelte';
 import CountdownWatch from '../components/CountdownWatch.svelte';
 import WhyAttend from '../components/WhyAttend.astro';
+import WhyAttendBento from '../components/WhyAttendBento.astro';
 import FeaturedSpeakers from '../components/FeaturedSpeakers.astro';
 import TicketPricing from '../components/TicketPricing.astro';
 import FeaturedSessions from '../components/FeaturedSessions.astro';
@@ -18,6 +19,7 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
   <HeroNav client:only="svelte" />
   <CountdownWatch client:load />
 
+  <main id="main-content">
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
       <video
@@ -57,7 +59,7 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
       </div>
     </div>
 
-    <a class="scroll-cue" href="#why-attend" aria-label="Scroll down">
+    <a class="scroll-cue" href="#why-attend-bento" aria-label="Scroll to why attend">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
         <circle cx="12" cy="12" r="10" stroke="#ffffff" stroke-width="2" />
         <path d="M16 10L12 14L8 10" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -65,11 +67,11 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
     </a>
   </section>
   
-  <main>
-    <WhyAttend />
+    <!-- <WhyAttend /> -->
+    <WhyAttendBento />
     <FeaturedSpeakers />
-    <TicketPricing />
     <FeaturedSessions />
+    <TicketPricing />
     <PromoBanner />
     <GlobalSponsors />
     <Faq />
@@ -78,7 +80,7 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
 
   <UniversalFooter />
 
-  <ReviewAnnotations client:only="svelte" />
+  {import.meta.env.DEV && <ReviewAnnotations client:only="svelte" />}
 </Layout>
 
 <style>

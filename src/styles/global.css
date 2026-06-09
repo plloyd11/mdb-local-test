@@ -6,6 +6,56 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ---------------------------------------------------------------------------
+   Accessibility hardening
+   A single, always-visible keyboard focus ring for every interactive element.
+   Charged green reads against both the deep-navy surfaces and the white nav;
+   the offset keeps it visible even on green buttons (the ring lands on the
+   darker surface behind). Components may override with their own :focus-visible.
+--------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #00ed64;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip link: off-screen until focused, then pinned top-left above the nav. */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: #00ed64;
+  color: #001e2b;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 4px;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+  transition: transform var(--flora-motion-duration-enter, 250ms)
+    var(--flora-motion-easing-emphasized, ease);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Stakeholder-review "push" drawer: when a callout drawer opens on a wide
+   screen, ReviewAnnotations sets --review-push to the drawer width so the page
+   content reflows into the remaining space instead of being covered. Defaults
+   to 0 (no effect). The transition token collapses under reduced-motion. */
+:root {
+  --review-push: 0px;
+}
+
+body {
+  padding-left: var(--review-push);
+  transition: padding-left var(--flora-motion-duration-enter) var(--flora-motion-easing-emphasized);
+}
+
 @theme inline {
  
    /* Reset default Tailwind configuration */
@@ -568,6 +618,11 @@ html {
     --flora-motion-duration-moderate: 0.01ms;
     --flora-motion-duration-slow: 0.01ms;
     --flora-motion-delay-stagger: 0ms;
+  }
+
+  /* Smooth-scroll is motion too: jump instantly for reduced-motion users. */
+  html {
+    scroll-behavior: auto;
   }
 }
 

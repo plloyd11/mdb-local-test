@@ -1,9 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import ticketsPhoto from '../assets/local/tickets.png';
+import ticketsPhoto from '../assets/local/attend.png';
 
 const tiers = [
-  { name: 'Super Early Bird', detail: 'Starts May 10', price: '$50' },
   { name: 'Early Bird', detail: 'Starts June 1', price: '$75' },
   { name: 'General', detail: 'Starts July 5', price: '$125' },
 ];
@@ -24,15 +23,37 @@ const benefits = [
       src={ticketsPhoto}
       alt="A speaker presenting on stage to the audience at a .local event"
       widths={[670, 1010, 1340]}
-      sizes="(max-width: 1024px) 100vw, 40vw"
+      sizes="(max-width: 1024px) 100vw, 54vw"
       loading="lazy"
     />
   </div>
 
   <div class="pricing-copy">
     <div class="pricing-copy-inner">
+      <div class="benefits-block">
+        <h2 class="section-heading">Every ticket includes</h2>
+        <ul class="benefits-grid">
+          {
+            benefits.map((b) => (
+              <li class="benefit">
+                <svg class="check" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <rect width="20" height="20" rx="4" fill="#00ed64" />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M16.704 4.153a.86.86 0 0 1 .143 1.052l-8 10.5a.85.85 0 0 1-.626.295.85.85 0 0 1-.64-.22l-4.5-4.5a.86.86 0 0 1 1.198-1.232l3.894 3.893 7.48-9.817a.86.86 0 0 1 1.051-.224Z"
+                    fill="#001e2b"
+                  />
+                </svg>
+                <span>{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
       <div class="price-block">
-        <h2 class="pricing-title">Ticket Pricing</h2>
+        <h3 class="pricing-subtitle">Ticket Pricing</h3>
 
         <div class="pricing-tiers">
           {
@@ -49,28 +70,6 @@ const benefits = [
         </div>
       </div>
 
-      <div class="benefits-block">
-        <h3 class="benefits-title">Every ticket includes</h3>
-        <ul class="benefits-grid">
-          {
-            benefits.map((b) => (
-              <li class="benefit">
-                <svg class="check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path
-                    d="M3 8.5 6.5 12 13 4.5"
-                    stroke="#27cd00"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <span>{b}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
       <div class="cta-block">
         <a class="pricing-cta" href="#register">Register Now</a>
         <p class="disclaimer">All prices are in USD and exclude applicable taxes.</p>
@@ -81,8 +80,9 @@ const benefits = [
 
 <style>
   .pricing {
+    margin-top: 128px;
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: minmax(0, 1.19fr) minmax(0, 1fr);
     background: #001e2b;
     color: #ffffff;
   }
@@ -92,6 +92,8 @@ const benefits = [
     position: relative;
     overflow: hidden;
     background: #001e2b;
+    /* Bleeds to the left edge; rounded on the inner (copy-facing) side */
+    border-radius: 0 8px 8px 0;
   }
 
   .pricing-photo :global(img) {
@@ -114,32 +116,73 @@ const benefits = [
 
   .pricing-copy-inner {
     width: 100%;
-    max-width: 914px;
+    max-width: 696px;
     display: flex;
     flex-direction: column;
-    gap: clamp(40px, 5vw, 49px);
+    gap: clamp(40px, 5vw, 48px);
   }
 
-  .price-block,
+  /* ---------- Benefits (lead block) ---------- */
   .benefits-block {
     display: flex;
     flex-direction: column;
     gap: 32px;
   }
 
-  .pricing-title {
+  .section-heading {
     font-family: 'MongoDB Value Serif', Georgia, serif;
     font-weight: 400;
     font-size: clamp(40px, 5vw, 56px);
     line-height: 1.14;
     color: #ffffff;
     margin: 0;
+    text-wrap: balance;
   }
 
-  /* ---------- Pricing tiers ---------- */
+  .benefits-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 5vw, 72px);
+    row-gap: 8px;
+  }
+
+  .benefit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+    color: #ffffff;
+  }
+
+  .check {
+    flex-shrink: 0;
+  }
+
+  /* ---------- Pricing ---------- */
+  .price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pricing-subtitle {
+    font-family: 'Euclid Circular A', sans-serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3.5vw, 32px);
+    line-height: 1.5;
+    color: #ffffff;
+    margin: 0;
+  }
+
   .pricing-tiers {
     width: 100%;
-    max-width: 830px;
   }
 
   .tier {
@@ -147,16 +190,12 @@ const benefits = [
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    padding: 24px 0;
+    padding: 12px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.16);
   }
 
   .tier:first-child {
     border-top: 0;
-  }
-
-  .tier:last-child {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   }
 
   .tier-info {
@@ -182,49 +221,12 @@ const benefits = [
   }
 
   .tier-price {
-    font-family: 'MongoDB Value Serif', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(40px, 5vw, 56px);
-    line-height: 1.1;
-    color: #ffffff;
-    white-space: nowrap;
-  }
-
-  /* ---------- Benefits ---------- */
-  .benefits-title {
     font-family: 'Euclid Circular A', sans-serif;
     font-weight: 500;
-    font-size: clamp(26px, 3.5vw, 32px);
-    line-height: 1.4;
+    font-size: 40px;
+    line-height: 1.2;
     color: #ffffff;
-    margin: 0;
-  }
-
-  .benefits-grid {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    max-width: 590px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(24px, 5vw, 72px);
-    row-gap: 8px;
-  }
-
-  .benefit {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    font-family: 'Euclid Circular A', sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 32px;
-    color: #ffffff;
-  }
-
-  .check {
-    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   /* ---------- CTA ---------- */
@@ -291,6 +293,7 @@ const benefits = [
 
     .pricing-photo {
       min-height: clamp(280px, 50vw, 440px);
+      border-radius: 0;
     }
   }
 

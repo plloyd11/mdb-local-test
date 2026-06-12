@@ -35,8 +35,8 @@
       label: 'Why Attend',
       anchor: '.why-title',
       body: [
-        'Rather than overwhelming users with a dense logistical schedule early on, we use a scannable, three-pillar benefit framework mapped to distinct attendee motivations.',
-        'The adjacent high-energy photography acts as an intentional narrative layer. By showing real developers actively collaborating under the flagship branding, we humanize the tech ecosystem and allow prospective attendees to instantly visualize themselves in the room, turning abstract benefits into concrete emotional investment.',
+        'This section utilizes a modern, modular bento box layout to move away from static, predictable column lists, significantly driving up visual engagement and scannability for a tech-centric audience. The narrative kicks off with a conversational, developer-first headline that directly tackles the psychological hurdle of getting builders to step away from their daily sprints.',
+        'Strategically, we have embedded a vibrant, high-contrast inline CTA card directly into the heart of the grid. This serves as a powerful visual pattern-interrupt—capturing the eye precisely as the user consumes the core value pillars and serving up immediate logistical clarity ("Where and when") paired with a frictionless path to ticket options. The entire layout is anchored on the right by a large, vertical, high-energy stage photograph that powerfully visualizes the scale of the live experience.',
       ],
     },
     {
@@ -50,20 +50,20 @@
     },
     {
       num: '4',
-      label: 'Ticket Pricing',
-      anchor: '.pricing-title',
-      body: [
-        'This component uses transparent, tiered pricing to leverage the psychological principle of loss aversion, incentivizing immediate registration to lock in the lowest rate.',
-        'To overcome budget objections and streamline corporate expense approvals, we position a distinct "Every ticket includes" value checklist directly alongside the costs. This structure shifts the user\'s cognitive focus from an expense to a high-ROI investment, backed by immersive presentation imagery that reinforces the premium physical scale of a flagship event.',
-      ],
-    },
-    {
-      num: '5',
       label: 'Featured Sessions',
       anchor: '#sessions .section-header-title',
       body: [
         'This section provides the tangible proof points that back up our high-level marketing narrative. By highlighting concrete, tactical sessions across diverse, tagged tracks (Data Modeling, Analytics, Microservices), we allow different technical personas to quickly validate that the agenda is directly relevant to their daily workflows.',
         'It eliminates abstract uncertainty for middle-of-the-funnel visitors, using a "View all sessions" secondary action as a progressive disclosure path to keep the landing page light, fast, and hyper-scannable.',
+      ],
+    },
+    {
+      num: '5',
+      label: 'Ticket Pricing',
+      anchor: '#pricing .section-heading',
+      body: [
+        'This component uses transparent, tiered pricing to leverage the psychological principle of loss aversion, incentivizing immediate registration to lock in the lowest rate.',
+        'To overcome budget objections and streamline corporate expense approvals, we position a distinct "Every ticket includes" value checklist directly alongside the costs. This structure shifts the user\'s cognitive focus from an expense to a high-ROI investment, backed by immersive presentation imagery that reinforces the premium physical scale of a flagship event.',
       ],
     },
   ];

@@ -15,7 +15,7 @@ import UniversalFooter from '../components/UniversalFooter.astro';
 import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
 ---
 
-<Layout title="MongoDB .local San Francisco · 2026">
+<Layout title="MongoDB .local Build Fest · 2026">
   <HeroNav client:only="svelte" />
   <CountdownWatch client:load />
 
@@ -37,20 +37,17 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
 
     <div class="hero-content">
       <div class="eyebrow">
-        <span>The Midway, San Francisco</span>
+        <span>Pier 48, San Francisco</span>
         <span class="dot" aria-hidden="true">•</span>
         <span>August 13, 2026</span>
       </div>
 
       <h1 class="headline">
-        Ship your AI<br />
-        vision, faster.
+        Build agents. Ship faster. Own the stack.
       </h1>
 
       <p class="lede">
-        Join the Bay Area's top leaders, founders, and experts for a day of knowledge
-        sharing and networking. You'll master new tech, gain a fresh vision of success,
-        and see the latest from MongoDB and Voyage AI.
+        The production-ready data platform for production agents is here. Join builders, founders, and AI-forward teams in San Francisco to see how MongoDB powers memory, state, and retrieval—in one platform.
       </p>
 
       <div class="cta-row">
@@ -69,12 +66,12 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
   
     <!-- <WhyAttend /> -->
     <WhyAttendBento />
-    <FeaturedSpeakers />
-    <FeaturedSessions />
+    <!-- <FeaturedSpeakers /> -->
+    <!-- <FeaturedSessions /> -->
     <TicketPricing />
     <PromoBanner />
     <GlobalSponsors />
-    <Faq />
+    <!-- <Faq /> -->
     <Endcap />
   </main>
 
@@ -151,6 +148,7 @@ import ReviewAnnotations from '../components/ReviewAnnotations.svelte';
   .headline {
     font-family: 'Euclid Circular A', sans-serif;
     font-weight: 400;
+    max-width: 1176px;
     font-size: clamp(48px, 7vw, 96px);
     line-height: 1.1;
     text-transform: uppercase;

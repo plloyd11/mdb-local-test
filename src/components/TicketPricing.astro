@@ -3,17 +3,17 @@ import { Image } from 'astro:assets';
 import ticketsPhoto from '../assets/local/attend.png';
 
 const tiers = [
-  { name: 'Early Bird', detail: 'Starts June 1', price: '$75' },
-  { name: 'General', detail: 'Starts July 5', price: '$125' },
+  { name: 'Early Bird', detail: 'Ends July 22nd', price: '$100' },
+  { name: 'General', detail: '', price: '$200' },
 ];
 
 const benefits = [
-  'Sessions, panels & demos',
-  'MongoDB Expert access',
-  'Skill badges',
-  'Exclusive merch',
-  'Partner showcases',
+  'Technical sessions & live demos',
   'Food & drinks all day',
+  'Guided workshops & bootcamps',
+  '1:1 MongoDB expert office hours',
+  'Community-driven talks & peer networking',
+  'Builder\'s afterparty',
 ];
 ---
 
@@ -82,7 +82,7 @@ const benefits = [
   .pricing {
     margin-top: 128px;
     display: grid;
-    grid-template-columns: minmax(0, 1.19fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     background: #001e2b;
     color: #ffffff;
   }
@@ -111,12 +111,11 @@ const benefits = [
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: clamp(56px, 7vw, 88px) clamp(24px, 4vw, 64px);
+    padding: clamp(56px, 7vw, 88px) clamp(24px, 4vw, 32px);
   }
 
   .pricing-copy-inner {
     width: 100%;
-    max-width: 696px;
     display: flex;
     flex-direction: column;
     gap: clamp(40px, 5vw, 48px);
@@ -145,19 +144,19 @@ const benefits = [
     padding: 0;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(24px, 5vw, 72px);
+    column-gap: clamp(24px, 5vw, 32px);
     row-gap: 8px;
   }
 
   .benefit {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 12px 0;
     font-family: 'Euclid Circular A', sans-serif;
     font-weight: 400;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 120%;
     color: #ffffff;
   }
 
